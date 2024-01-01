@@ -31,9 +31,9 @@
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
@@ -75,11 +75,6 @@
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "ribbonPanel1";
             // 
-            // ribbonTab2
-            // 
-            this.ribbonTab2.Name = "ribbonTab2";
-            this.ribbonTab2.Text = "ribbonTab2";
-            // 
             // ribbonPanel2
             // 
             this.ribbonPanel2.Name = "ribbonPanel2";
@@ -89,6 +84,11 @@
             // 
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "ribbonPanel3";
+            // 
+            // ribbonTab2
+            // 
+            this.ribbonTab2.Name = "ribbonTab2";
+            this.ribbonTab2.Text = "ribbonTab2";
             // 
             // listBox1
             // 

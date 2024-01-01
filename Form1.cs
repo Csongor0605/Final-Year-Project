@@ -15,6 +15,7 @@ namespace Final_Year_Project
         public Form1()
         {
             InitializeComponent();
+            listBox1.DataSource = CurrData.clientData;
         }
     }
 }
