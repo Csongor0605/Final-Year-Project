@@ -18,10 +18,13 @@ namespace Final_Year_Project
 
         public static void LoadLocalDatabase() 
         {
-            using (var connection = new SqliteConnection("Data Source=local.db"))
+            using (var connection = new SqliteConnection("Data Source=localDatabase.mdf"))
             {
                 connection.Open();
 
+                //Connect to database
+                //Get list of clients and fields into relevent classes
+                //Update list in forms
             }
         }
     }

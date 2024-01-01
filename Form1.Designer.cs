@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
@@ -36,6 +37,10 @@
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.localDatabaseDataSet = new Final_Year_Project.localDatabaseDataSet();
+            this.localDatabaseDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -105,6 +110,16 @@
             this.panel1.Size = new System.Drawing.Size(996, 429);
             this.panel1.TabIndex = 2;
             // 
+            // localDatabaseDataSet
+            // 
+            this.localDatabaseDataSet.DataSetName = "localDatabaseDataSet";
+            this.localDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // localDatabaseDataSetBindingSource
+            // 
+            this.localDatabaseDataSetBindingSource.DataSource = this.localDatabaseDataSet;
+            this.localDatabaseDataSetBindingSource.Position = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,6 +131,8 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,6 +147,8 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.BindingSource localDatabaseDataSetBindingSource;
+        private localDatabaseDataSet localDatabaseDataSet;
     }
 }
 
