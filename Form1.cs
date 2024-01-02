@@ -15,7 +15,9 @@ namespace Final_Year_Project
         public Form1()
         {
             InitializeComponent();
+            CurrData.LoadLocalDatabase();
             listBox1.DataSource = CurrData.clientData;
+            listBox1.DisplayMember = "displayName";
         }
     }
 }

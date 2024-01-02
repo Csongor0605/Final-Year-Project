@@ -11,6 +11,12 @@ namespace Final_Year_Project
         public string fieldName;
         protected object data;
 
+        public Field(string fieldName, object data)
+        {
+            this.fieldName = fieldName;
+            this.data = data;
+        }
+
         public object GetData() { return data; }
     }
 
@@ -18,5 +24,17 @@ namespace Final_Year_Project
     {
         private new DateTime data;
 
+        public FieldDateTime(string fieldName, object data) : base(fieldName, data)
+        {
+            try
+            {
+                this.data = Convert.ToDateTime(data);
+            }
+            catch 
+            {
+                this.data = new DateTime();
+            }
+            this.fieldName = fieldName;
+        }
     }
 }
