@@ -18,6 +18,11 @@ namespace Final_Year_Project
         }
 
         public object GetData() { return data; }
+
+        public string GetDataAsString()
+        {
+            return data.ToString();
+        }
     }
 
     class FieldDateTime: Field 
@@ -35,6 +40,11 @@ namespace Final_Year_Project
                 this.data = new DateTime();
             }
             this.fieldName = fieldName;
+        }
+
+        public new string GetDataAsString() 
+        {
+            return data.ToShortDateString();
         }
     }
 }

@@ -29,5 +29,15 @@ namespace Final_Year_Project
             //TODO
             return null;
         }
+
+        public Field[] GetAllFields()
+        {
+            return fields.Values.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return displayName;
+        }
     }
 }
