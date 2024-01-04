@@ -21,7 +21,14 @@ namespace Final_Year_Project
 
         public string GetDataAsString()
         {
+            if (data == null)
+                return "";
             return data.ToString();
+        }
+
+        public void SetData(object data)
+        {
+            this.data = data;
         }
     }
 
@@ -44,6 +51,8 @@ namespace Final_Year_Project
 
         public new string GetDataAsString() 
         {
+            if (data == null)
+                return "";
             return data.ToShortDateString();
         }
     }

@@ -8,6 +8,7 @@ namespace Final_Year_Project
 {
     internal class ClientData
     {
+        public readonly int Id;
         public string displayName = "NoDisplayName";
         private Dictionary<string, Field> fields;
 
@@ -20,6 +21,10 @@ namespace Final_Year_Project
                 if (currField.fieldName == "Name")
                 {
                     displayName = currField.GetData().ToString();
+                }
+                else if (currField.fieldName == "Id")
+                {
+                    int.TryParse(currField.GetData().ToString(),out Id);
                 }
             }
         }
@@ -39,5 +44,15 @@ namespace Final_Year_Project
         {
             return displayName;
         }
+
+        public void SetField(string fieldName, object data)
+        {
+            fields[fieldName].SetData(data);
+            if (fieldName == "Name")
+            {
+                displayName = data.ToString();
+            }
+        }
+
     }
 }

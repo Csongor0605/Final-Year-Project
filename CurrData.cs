@@ -1,6 +1,8 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
@@ -18,22 +20,31 @@ namespace Final_Year_Project
 {
     internal static class CurrData
     {
-        public static List<ClientData> clientData;
-        private static int selectedClient;
+        public static BindingList<ClientData> clientData;
+        private static string connectionString;
 
         public static object GetFieldValue(int clientIndex,string fieldName) 
         {
             return null;
         }
 
-        public static void ChangeSelected(int newSelectedIndex)
+        public static bool ValidateInput(string fieldName, string data)
         {
-            
+            //Implement at least some form of validation
+            return true;
         }
 
-        public static bool ValidateInput()
+        public static void UpdateField(int clientID,string fieldName,object newData)
         {
-            return true;
+            if (!ValidateInput(fieldName, newData.ToString()))
+                return;
+            foreach (ClientData client in clientData)
+            {
+                if (client.Id == clientID)
+                {
+                    client.SetField(fieldName, newData);
+                }
+            }
         }
 
         public static void CreateDatabase(string dbName = "localDB.db") 
@@ -55,10 +66,10 @@ namespace Final_Year_Project
             //}
         }
 
-        public static void SaveLocalDatabase()
+        public static void SaveLocalDatabase(string path = @"C:\Users\Me\source\repos\Final-Year-Project\default.csv")
         {
-
-            StreamWriter writer = new StreamWriter(@"C:\Users\Me\source\repos\Final-Year-Project\default.csv");
+            string dir = System.IO.Directory.GetCurrentDirectory();
+            StreamWriter writer = new StreamWriter(path);
             
             foreach (var client in clientData) 
             {
@@ -68,7 +79,6 @@ namespace Final_Year_Project
                 }
                 writer.WriteLine();
             }
-            writer.WriteLine();
             writer.Close();
             //Craeate stream writer
             //Loop over each client
@@ -77,13 +87,15 @@ namespace Final_Year_Project
             //addblank line at the end
         }
 
-        public static void LoadLocalDatabase() 
+        public static void LoadLocalDatabase(string path= @"C:\Users\Me\source\repos\Final-Year-Project\default.csv") 
         {
             
             List<ClientData> tempClient = new List<ClientData>();
             List<Field> tempFields = new List<Field>();
 
-            StreamReader reader = new StreamReader(@"C:\Users\Me\source\repos\Final-Year-Project\default.csv");
+            string dir = System.IO.Directory.GetCurrentDirectory();
+
+            StreamReader reader = new StreamReader(path);
             string line="";
             while (!reader.EndOfStream)
             {
@@ -103,7 +115,7 @@ namespace Final_Year_Project
                 
             }
             reader.Close();
-            clientData = tempClient;
+            clientData = new BindingList<ClientData>(tempClient);
 
 
 
@@ -150,6 +162,25 @@ namespace Final_Year_Project
             //    throw ex;
             //    //Handle this in some way
             //}
+        }
+
+        public static void CreateNewClient(Field[] fields)
+        {
+            //Need get Id from database
+            if (fields == null)
+            {
+                List<Field> temp = new List<Field>();
+                Random rand = new Random();
+                temp.Add(new Field("Id", rand.Next(100,999)));
+
+                temp.Add(new Field("Name","New Client"));
+                temp.Add(new Field("Address",null));
+                temp.Add(new FieldDateTime("Date of Birth",null));
+
+                fields = temp.ToArray();
+            }
+            
+            clientData.Add(new ClientData(fields));
         }
     }
 }

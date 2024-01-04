@@ -64,7 +64,7 @@
             this.ribbon1.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2010_Extended;
             this.ribbon1.OrbVisible = false;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.ribbon1.Size = new System.Drawing.Size(899, 122);
+            this.ribbon1.Size = new System.Drawing.Size(1009, 122);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.Tabs.Add(this.ribbonTab2);
@@ -92,7 +92,7 @@
             this.addClientBtn.Name = "addClientBtn";
             this.addClientBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("addClientBtn.SmallImage")));
             this.addClientBtn.Text = "Add Client";
-            this.addClientBtn.DoubleClick += new System.EventHandler(this.addClientBtn_DoubleClick);
+            this.addClientBtn.Click += new System.EventHandler(this.addClientBtn_DoubleClick);
             // 
             // ribbonPanel2
             // 
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 575);
+            this.ClientSize = new System.Drawing.Size(1009, 575);
             this.Controls.Add(this.detailDisplayPanel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ribbon1);
