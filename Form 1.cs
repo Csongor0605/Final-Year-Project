@@ -93,5 +93,10 @@ namespace Final_Year_Project
             //validate
             //tell CurrDatas update client(clientID).field with new info
         }
+
+        private void createDB_Btn_Click(object sender, EventArgs e)
+        {
+            CurrData.CreateDatabase();
+        }
     }
 }

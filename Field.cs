@@ -8,7 +8,7 @@ namespace Final_Year_Project
 {
     class Field
     {
-        public string fieldName;
+        public string fieldName; //Field name to disply, not as in database
         protected object data;
 
         public Field(string fieldName, object data)
