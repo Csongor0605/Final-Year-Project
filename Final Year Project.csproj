@@ -126,10 +126,19 @@
     <Compile Include="addClientForm.Designer.cs">
       <DependentUpon>addClientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateDatabaseFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDatabaseFile.Designer.cs">
+      <DependentUpon>CreateDatabaseFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="addClientForm.resx">
       <DependentUpon>addClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDatabaseFile.resx">
+      <DependentUpon>CreateDatabaseFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form 1.resx">
       <DependentUpon>Form 1.cs</DependentUpon>

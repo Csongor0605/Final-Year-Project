@@ -19,12 +19,13 @@ using System.Xml.Linq;
 
 namespace Final_Year_Project
 {
+
     internal static class CurrData
     {
         public static BindingList<ClientData> clientData;
         private static string connectionString = System.Windows.Forms.Application.StartupPath + "\\" + "localDB.sqlite";
         public static Dictionary<string,Tuple< string, bool>> databaseScheme = new Dictionary<string, Tuple<string,bool>>();   //Key is display name, tuple contains data type, and if it is nullable
-
+        public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL" };
         public static object GetFieldValue(int clientIndex,string fieldName) 
         {
             return null;
@@ -49,37 +50,8 @@ namespace Final_Year_Project
             }
         }
 
-        public static void CreateDatabase() 
-        {
-            if (System.IO.File.Exists(connectionString))
-                return;
-            else
-            {
-                try
-                {
-                    SQLiteConnection.CreateFile(connectionString);
-
-                    using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
-                    {
-                        con.Open();
-                        SQLiteCommand command = con.CreateCommand();
-                        command.CommandText =
-                            "CREATE TABLE Client(" +
-                            "Id INTEGER NOT NULL, " +
-                            "Name NCHAR(100) NOT NULL, " +
-                            "Address NCHAR(100) NULL, " +
-                            "Date_Of_Birth DATE NULL, " +
-                            "PRIMARY KEY(\"Id\" AUTOINCREMENT));";
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-            }
-        }
+        public static string GetConnectionString()
+        { return connectionString; }
 
         public static void SaveLocalDatabase()
         {
