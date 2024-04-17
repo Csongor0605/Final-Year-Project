@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ribbon1 = new System.Windows.Forms.Ribbon();
+            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.addClientBtn = new System.Windows.Forms.RibbonButton();
@@ -42,7 +43,7 @@
             this.createDB_Btn = new System.Windows.Forms.RibbonButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.detailDisplayPanel = new System.Windows.Forms.Panel();
-            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
+            this.selectDBLocationBtn = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -72,6 +73,15 @@
             this.ribbon1.Tabs.Add(this.ribbonTab2);
             this.ribbon1.TabSpacing = 3;
             this.ribbon1.Text = "ribbon1";
+            // 
+            // ribbonButton1
+            // 
+            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
+            this.ribbonButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.LargeImage")));
+            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
+            this.ribbonButton1.Name = "ribbonButton1";
+            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
+            this.ribbonButton1.Text = "ribbonButton1";
             // 
             // ribbonTab1
             // 
@@ -135,6 +145,7 @@
             // ribbonPanel4
             // 
             this.ribbonPanel4.Items.Add(this.createDB_Btn);
+            this.ribbonPanel4.Items.Add(this.selectDBLocationBtn);
             this.ribbonPanel4.Name = "ribbonPanel4";
             this.ribbonPanel4.Text = "DataBase";
             // 
@@ -164,14 +175,14 @@
             this.detailDisplayPanel.Size = new System.Drawing.Size(543, 433);
             this.detailDisplayPanel.TabIndex = 2;
             // 
-            // ribbonButton1
+            // selectDBLocationBtn
             // 
-            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
-            this.ribbonButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.LargeImage")));
-            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
-            this.ribbonButton1.Name = "ribbonButton1";
-            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
-            this.ribbonButton1.Text = "ribbonButton1";
+            this.selectDBLocationBtn.Image = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.Image")));
+            this.selectDBLocationBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.LargeImage")));
+            this.selectDBLocationBtn.Name = "selectDBLocationBtn";
+            this.selectDBLocationBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.SmallImage")));
+            this.selectDBLocationBtn.Text = "Set Database Location";
+            this.selectDBLocationBtn.Click += new System.EventHandler(this.selectDBLocationBtn_Click);
             // 
             // Form1
             // 
@@ -204,6 +215,7 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
         private System.Windows.Forms.RibbonButton createDB_Btn;
         private System.Windows.Forms.RibbonButton ribbonButton1;
+        private System.Windows.Forms.RibbonButton selectDBLocationBtn;
     }
 }
 

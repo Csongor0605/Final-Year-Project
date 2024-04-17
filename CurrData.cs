@@ -23,7 +23,7 @@ namespace Final_Year_Project
     internal static class CurrData
     {
         public static BindingList<ClientData> clientData;
-        private static string connectionString = System.Windows.Forms.Application.StartupPath + "\\" + "localDB.sqlite";
+        private static string connectionString = System.Windows.Forms.Application.StartupPath + "\\" + "localDB.sqlite" ;
         public static Dictionary<string,Tuple< string, bool>> databaseScheme = new Dictionary<string, Tuple<string,bool>>();   //Key is display name, tuple contains data type, and if it is nullable
         public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL" };
         public static object GetFieldValue(int clientIndex,string fieldName) 
@@ -52,6 +52,8 @@ namespace Final_Year_Project
 
         public static string GetConnectionString()
         { return connectionString; }
+
+        public static void SetConnenctionString(string newConnectionString) { connectionString = newConnectionString; }
 
         public static void SaveLocalDatabase()
         {
@@ -97,34 +99,12 @@ namespace Final_Year_Project
             List<ClientData> tempClient = new List<ClientData>();
             List<Field> tempFields = new List<Field>();
 
-            //string dir = System.IO.Directory.GetCurrentDirectory();
+            if (!System.IO.File.Exists(connectionString))
+                return;
 
-            //StreamReader reader = new StreamReader(path);
-            //string line="";
-            //while (!reader.EndOfStream)
-            //{
-            //    line=reader.ReadLine();
-            //    if (line == "")
-            //    {
-            //        tempClient.Add(new ClientData(tempFields.ToArray()));
-            //        tempFields.Clear();
-            //    }
-            //    else
-            //    {
-            //        string[] lineSplit = line.Split(',');
-            //        string fieldName = lineSplit[0];
-            //        string fieldValue = lineSplit[1];
-            //        tempFields.Add(new Field(fieldName, fieldValue));
-            //    }
-
-            //}
-            //reader.Close();
-            //clientData = new BindingList<ClientData>(tempClient);
-
-
-            //try
-            //{
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
             {
                 connection.Open();
 
@@ -159,12 +139,12 @@ namespace Final_Year_Project
 
                 connection.Close();
             }
-            //}
-            //catch (Exception ex)
-            //{
-            //    //throw ex;
-            //    //Handle this in some way
-            //}
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                //Handle this in some way
+            }
 
             clientData = new BindingList<ClientData>(tempClient);
             }
@@ -188,6 +168,8 @@ namespace Final_Year_Project
             clientData.Add(new ClientData(fields));
         }
 
+        public static void CreateNewClient(ClientData clientToAdd) { clientData.Add(clientToAdd); }
+
         private static void LoadDatabaseScheme(SQLiteConnection con)
         {
             //try
@@ -201,7 +183,7 @@ namespace Final_Year_Project
                     string tempType = (string)reader["type"];
                     bool tempNullable = reader["notnull"].Equals(0);
 
-                    //databaseScheme.Add(tempName.Replace('_',' '),new Tuple<string, bool> (tempType,tempNullable));
+                    databaseScheme.Add(tempName.Replace('_',' '),new Tuple<string, bool> (tempType,tempNullable));
                 }
             //}
             //catch (Exception ex)

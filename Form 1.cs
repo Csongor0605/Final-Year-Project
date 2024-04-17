@@ -65,7 +65,17 @@ namespace Final_Year_Project
 
         private void addClientBtn_DoubleClick(object sender, EventArgs e)
         {
-            CurrData.CreateNewClient(null);
+
+            var result = new addClientForm();
+            result.ShowDialog();
+            if (result.DialogResult == DialogResult.OK)
+            {
+                try
+                {
+                    CurrData.CreateNewClient(result.);
+                }
+            }
+            //CurrData.CreateNewClient(null);
             //Add seperate form to add fields
             listBox1.SetSelected(CurrData.clientData.Count - 1, true);
         }
@@ -99,6 +109,12 @@ namespace Final_Year_Project
             //CurrData.CreateDatabase();
             CreateDatabaseFile createDBform = new CreateDatabaseFile();
             createDBform.ShowDialog();
+        }
+
+        private void selectDBLocationBtn_Click(object sender, EventArgs e)
+        {
+            DBLocationForm locationForm = new DBLocationForm();
+            locationForm.ShowDialog();
         }
     }
 }

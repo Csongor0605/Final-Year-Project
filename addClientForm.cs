@@ -12,6 +12,8 @@ namespace Final_Year_Project
 {
     public partial class addClientForm : Form
     {
+        public ClientData returnValue = null;
+
         public addClientForm()
         {
             InitializeComponent();
@@ -19,15 +21,15 @@ namespace Final_Year_Project
             //generate and add group boxes
             //add event handler
             //add validation function
-
+            CreateControls();
         }
 
         private void CreateControls()
         {
             panel1.SuspendLayout();
 
-            foreach (KeyValuePair<string,Tuple<string,bool>> field in CurrData.databaseScheme)
-            { 
+            foreach (KeyValuePair<string, Tuple<string, bool>> field in CurrData.databaseScheme)
+            {
                 GroupBox groupBox1 = new System.Windows.Forms.GroupBox();
                 TextBox textBox1 = new System.Windows.Forms.TextBox();
 
@@ -59,6 +61,15 @@ namespace Final_Year_Project
             }
 
             panel1.ResumeLayout(false);
+        }
+
+        private void addClientBtn_Click(object sender, EventArgs e)
+        {
+            //collect inputs
+            //check if non optional input fields have some value
+            //call client constructor
+            //set diagresult to ok
+            //close
         }
     }
 }
