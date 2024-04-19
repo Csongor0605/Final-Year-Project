@@ -12,7 +12,7 @@ namespace Final_Year_Project
 {
     public partial class addClientForm : Form
     {
-        public ClientData returnValue = null;
+        public Field[] returnValue = null;
 
         public addClientForm()
         {
@@ -40,7 +40,7 @@ namespace Final_Year_Project
                 | System.Windows.Forms.AnchorStyles.Right)));
                 groupBox1.Controls.Add(textBox1);
                 groupBox1.Location = new System.Drawing.Point(3, 3);
-                groupBox1.Name = "groupBox1";
+                groupBox1.Name = "fieldGroupBox";
                 groupBox1.Size = new System.Drawing.Size(242, 46);
                 groupBox1.TabIndex = 0;
                 groupBox1.TabStop = false;
@@ -50,7 +50,7 @@ namespace Final_Year_Project
                 textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
                 textBox1.Location = new System.Drawing.Point(7, 20);
-                textBox1.Name = "textBox1";
+                textBox1.Name = "userInput";
                 textBox1.Size = new System.Drawing.Size(229, 20);
                 textBox1.TabIndex = 0;
 
@@ -70,6 +70,11 @@ namespace Final_Year_Project
             //call client constructor
             //set diagresult to ok
             //close
+
+            foreach (GroupBox field in panel1.Controls.Find("fieldGroupBox", true))
+            { 
+                
+            }
         }
     }
 }

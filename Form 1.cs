@@ -72,7 +72,11 @@ namespace Final_Year_Project
             {
                 try
                 {
-                    CurrData.CreateNewClient(result.);
+                    CurrData.CreateNewClient(result.returnValue);
+                }
+                catch 
+                {
+                    MessageBox.Show("Returned client data could not be parsed by constructor, please check all inputs");
                 }
             }
             //CurrData.CreateNewClient(null);

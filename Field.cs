@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace Final_Year_Project
 {
-    class Field
+    //"NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL"
+    //^List of types of field
+    public class Field
     {
         public string fieldName; //Field name to disply, not as in database
         protected object data;
@@ -32,20 +35,45 @@ namespace Final_Year_Project
         }
     }
 
+    class FieldShortString : Field
+    {
+        private new string data;
+
+        public FieldShortString(string fieldName, object data) : base(fieldName, data)
+        {
+            SetData(data);
+            this.fieldName=fieldName;
+        }
+
+        public new void SetData(object data)
+        {
+            this.data = data.ToString();
+        }
+    }
+
+    class FieldInteger: Field
+    { 
+        private new int data;
+
+        public FieldInteger(string fieldName, object data) : base(fieldName, data)
+        { 
+        
+        }
+
+        public new void SetData(object data) 
+        { 
+            this.data = (int)data;
+        }
+    }
+
+
     class FieldDateTime: Field 
     {
         private new DateTime data;
 
         public FieldDateTime(string fieldName, object data) : base(fieldName, data)
         {
-            try
-            {
-                this.data = Convert.ToDateTime(data);
-            }
-            catch 
-            {
-                this.data = new DateTime();
-            }
+            SetData(data);
             this.fieldName = fieldName;
         }
 
@@ -55,5 +83,20 @@ namespace Final_Year_Project
                 return "";
             return data.ToShortDateString();
         }
+
+        public new void SetData(object data)
+        {
+            try
+            {
+                this.data = Convert.ToDateTime(data);
+            }
+            catch
+            {
+                //Add better handling, this is not good
+                this.data = new DateTime();
+            }
+        }
     }
+
+    
 }
