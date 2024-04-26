@@ -111,6 +111,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdatedField.cs" />
     <Compile Include="CurrData.cs" />
     <Compile Include="ClientData.cs" />
     <Compile Include="Field.cs" />

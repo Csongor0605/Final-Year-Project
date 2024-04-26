@@ -45,7 +45,6 @@
             // addClientBtn
             // 
             this.addClientBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addClientBtn.Enabled = false;
             this.addClientBtn.Location = new System.Drawing.Point(9, 342);
             this.addClientBtn.Name = "addClientBtn";
             this.addClientBtn.Size = new System.Drawing.Size(348, 37);

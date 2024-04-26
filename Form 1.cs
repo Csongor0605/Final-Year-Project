@@ -15,9 +15,7 @@ namespace Final_Year_Project
         public Form1()
         {
             InitializeComponent();
-            CurrData.LoadLocalDatabase();
-            listBox1.DataSource = CurrData.clientData;
-            listBox1.DisplayMember = "displayName";
+            //CurrData.LoadLocalDatabase();
         }
 
         private void DisplayFields(Field[] fields)
@@ -70,18 +68,18 @@ namespace Final_Year_Project
             result.ShowDialog();
             if (result.DialogResult == DialogResult.OK)
             {
-                try
-                {
-                    CurrData.CreateNewClient(result.returnValue);
-                }
-                catch 
-                {
-                    MessageBox.Show("Returned client data could not be parsed by constructor, please check all inputs");
-                }
+                //try
+                //{
+                    CurrData.CreateNewClient(result.returnValue.ToArray());
+                //}
+                //catch 
+                //{
+                //    MessageBox.Show("Returned client data could not be parsed by constructor, please check all inputs");
+                //}
             }
             //CurrData.CreateNewClient(null);
             //Add seperate form to add fields
-            listBox1.SetSelected(CurrData.clientData.Count - 1, true);
+            //listBox1.SetSelected(CurrData.clientData.Count - 1, true);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -93,6 +91,8 @@ namespace Final_Year_Project
         {
             ClearFieldDisplay();
             CurrData.LoadLocalDatabase();
+            listBox1.DataSource = CurrData.clientData;
+            listBox1.DisplayMember = "displayName";
         }
 
         private void FieldDataChanged(object sender, EventArgs e)

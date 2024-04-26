@@ -56,16 +56,50 @@ namespace Final_Year_Project
         private new int data;
 
         public FieldInteger(string fieldName, object data) : base(fieldName, data)
-        { 
-        
+        {
+            SetData(data);
+            this.fieldName=fieldName;
         }
 
-        public new void SetData(object data) 
-        { 
-            this.data = (int)data;
+        public new void SetData(object data)
+        {
+            try
+            {
+                this.data = int.Parse(data.ToString());
+            }
+            catch (Exception e) { throw e; }
         }
     }
 
+    class FieldDate : Field 
+    {
+        private new DateTime data;
+
+        public FieldDate(string fieldName, object data) : base(fieldName, data)
+        {
+            SetData(data);
+        }
+
+        public new string GetDataAsString()
+        {
+            if (data == null)
+                return "";
+            return data.Date.ToShortDateString();
+        }
+
+        public new void SetData(object data)
+        {
+            try
+            {
+                this.data = Convert.ToDateTime(data).Date;
+            }
+            catch
+            {
+                //Add better handling, this is not good
+                this.data = new DateTime();
+            }
+        }
+    }
 
     class FieldDateTime: Field 
     {
@@ -98,5 +132,37 @@ namespace Final_Year_Project
         }
     }
 
-    
+    class FieldLongString:Field
+    { 
+        private new string data;
+        public FieldLongString(string fieldName, object data) : base(fieldName, data)
+        {
+            SetData(data);
+            this.fieldName = fieldName;
+        }
+
+        public new void SetData(object data)
+        {
+            this.data = data.ToString();
+        }
+    }
+
+    class FieldReal : Field
+    { 
+        private new float data;
+        public FieldReal(string fieldName, object data) : base(fieldName, data)
+        {
+            SetData(data);
+            this.fieldName = fieldName;
+        }
+
+        public new void SetData(object data)
+        {
+            try
+            {
+                this.data = float.Parse(data.ToString());
+            }
+            catch (Exception e) { throw e; }//Should be handled better but this works for current development
+        }
+    }
 }

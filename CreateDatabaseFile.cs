@@ -113,17 +113,17 @@ namespace Final_Year_Project
             }
         }
 
-        private void CreateDatabase()
+        private bool CreateDatabase()
         {
             if (System.IO.File.Exists(fileLocation.Text) || fileLocation.Text == "")
-                return;
+                return false;
 
             string connectionString = fileLocation.Text;
 
             if (System.IO.File.Exists(connectionString))
             {
                 MessageBox.Show("Database file of that name already exists");
-                return;
+                return false;
             }
             else
             {
@@ -136,7 +136,7 @@ namespace Final_Year_Project
                     column += field.Controls.Find("fieldTypeDropDownBox", true).FirstOrDefault().Text;
 
                     CheckBox tempCheck = (CheckBox)field.Controls.Find("nullableCheckbox", true).FirstOrDefault();
-                    if (tempCheck.Checked)
+                    if (!tempCheck.Checked)
                         column += " NOT";
                     column += " NULL,";
                     commandText += column;
@@ -161,12 +161,23 @@ namespace Final_Year_Project
                 {
                     throw e;
                 }
+                return true;
             }
         }
 
         private void createDBfileBtn_Click(object sender, EventArgs e)
         {
-            CreateDatabase();
+            if (CreateDatabase())
+            {
+                CurrData.SetConnenctionString(fileLocation.Text);
+                CurrData.LoadLocalDatabase();
+            }
+            else
+            {
+                MessageBox.Show("Database creation failed, database likely already exists");
+                return;
+            }
+            this.Close();
         }
     }
 
