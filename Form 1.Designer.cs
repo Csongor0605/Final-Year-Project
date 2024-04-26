@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ribbon1 = new System.Windows.Forms.Ribbon();
+            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.addClientBtn = new System.Windows.Forms.RibbonButton();
@@ -39,12 +39,11 @@
             this.loadBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
+            this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
+            this.createDB_Btn = new System.Windows.Forms.RibbonButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.detailDisplayPanel = new System.Windows.Forms.Panel();
-            this.localDatabaseDataSet = new Final_Year_Project.localDatabaseDataSet();
-            this.localDatabaseDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSetBindingSource)).BeginInit();
+            this.selectDBLocationBtn = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -63,6 +62,10 @@
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2010_Extended;
             this.ribbon1.OrbVisible = false;
+            // 
+            // 
+            // 
+            this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
             this.ribbon1.Size = new System.Drawing.Size(1009, 122);
             this.ribbon1.TabIndex = 0;
@@ -70,6 +73,15 @@
             this.ribbon1.Tabs.Add(this.ribbonTab2);
             this.ribbon1.TabSpacing = 3;
             this.ribbon1.Text = "ribbon1";
+            // 
+            // ribbonButton1
+            // 
+            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
+            this.ribbonButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.LargeImage")));
+            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
+            this.ribbonButton1.Name = "ribbonButton1";
+            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
+            this.ribbonButton1.Text = "ribbonButton1";
             // 
             // ribbonTab1
             // 
@@ -127,7 +139,24 @@
             // ribbonTab2
             // 
             this.ribbonTab2.Name = "ribbonTab2";
+            this.ribbonTab2.Panels.Add(this.ribbonPanel4);
             this.ribbonTab2.Text = "ribbonTab2";
+            // 
+            // ribbonPanel4
+            // 
+            this.ribbonPanel4.Items.Add(this.createDB_Btn);
+            this.ribbonPanel4.Items.Add(this.selectDBLocationBtn);
+            this.ribbonPanel4.Name = "ribbonPanel4";
+            this.ribbonPanel4.Text = "DataBase";
+            // 
+            // createDB_Btn
+            // 
+            this.createDB_Btn.Image = ((System.Drawing.Image)(resources.GetObject("createDB_Btn.Image")));
+            this.createDB_Btn.LargeImage = ((System.Drawing.Image)(resources.GetObject("createDB_Btn.LargeImage")));
+            this.createDB_Btn.Name = "createDB_Btn";
+            this.createDB_Btn.SmallImage = ((System.Drawing.Image)(resources.GetObject("createDB_Btn.SmallImage")));
+            this.createDB_Btn.Text = "Create";
+            this.createDB_Btn.Click += new System.EventHandler(this.createDB_Btn_Click);
             // 
             // listBox1
             // 
@@ -146,15 +175,14 @@
             this.detailDisplayPanel.Size = new System.Drawing.Size(543, 433);
             this.detailDisplayPanel.TabIndex = 2;
             // 
-            // localDatabaseDataSet
+            // selectDBLocationBtn
             // 
-            this.localDatabaseDataSet.DataSetName = "localDatabaseDataSet";
-            this.localDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // localDatabaseDataSetBindingSource
-            // 
-            this.localDatabaseDataSetBindingSource.DataSource = this.localDatabaseDataSet;
-            this.localDatabaseDataSetBindingSource.Position = 0;
+            this.selectDBLocationBtn.Image = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.Image")));
+            this.selectDBLocationBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.LargeImage")));
+            this.selectDBLocationBtn.Name = "selectDBLocationBtn";
+            this.selectDBLocationBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.SmallImage")));
+            this.selectDBLocationBtn.Text = "Set Database Location";
+            this.selectDBLocationBtn.Click += new System.EventHandler(this.selectDBLocationBtn_Click);
             // 
             // Form1
             // 
@@ -167,8 +195,6 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Main Window";
-            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -183,11 +209,13 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Panel detailDisplayPanel;
-        private System.Windows.Forms.BindingSource localDatabaseDataSetBindingSource;
-        private localDatabaseDataSet localDatabaseDataSet;
         private System.Windows.Forms.RibbonButton addClientBtn;
         private System.Windows.Forms.RibbonButton saveBtn;
         private System.Windows.Forms.RibbonButton loadBtn;
+        private System.Windows.Forms.RibbonPanel ribbonPanel4;
+        private System.Windows.Forms.RibbonButton createDB_Btn;
+        private System.Windows.Forms.RibbonButton ribbonButton1;
+        private System.Windows.Forms.RibbonButton selectDBLocationBtn;
     }
 }
 

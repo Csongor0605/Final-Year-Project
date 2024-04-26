@@ -15,9 +15,7 @@ namespace Final_Year_Project
         public Form1()
         {
             InitializeComponent();
-            CurrData.LoadLocalDatabase();
-            listBox1.DataSource = CurrData.clientData;
-            listBox1.DisplayMember = "displayName";
+            //CurrData.LoadLocalDatabase();
         }
 
         private void DisplayFields(Field[] fields)
@@ -65,9 +63,23 @@ namespace Final_Year_Project
 
         private void addClientBtn_DoubleClick(object sender, EventArgs e)
         {
-            CurrData.CreateNewClient(null);
+
+            var result = new addClientForm();
+            result.ShowDialog();
+            if (result.DialogResult == DialogResult.OK)
+            {
+                //try
+                //{
+                    CurrData.CreateNewClient(result.returnValue.ToArray());
+                //}
+                //catch 
+                //{
+                //    MessageBox.Show("Returned client data could not be parsed by constructor, please check all inputs");
+                //}
+            }
+            //CurrData.CreateNewClient(null);
             //Add seperate form to add fields
-            listBox1.SetSelected(CurrData.clientData.Count - 1, true);
+            //listBox1.SetSelected(CurrData.clientData.Count - 1, true);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -79,6 +91,8 @@ namespace Final_Year_Project
         {
             ClearFieldDisplay();
             CurrData.LoadLocalDatabase();
+            listBox1.DataSource = CurrData.clientData;
+            listBox1.DisplayMember = "displayName";
         }
 
         private void FieldDataChanged(object sender, EventArgs e)
@@ -92,6 +106,19 @@ namespace Final_Year_Project
             //get client ID
             //validate
             //tell CurrDatas update client(clientID).field with new info
+        }
+
+        private void createDB_Btn_Click(object sender, EventArgs e)
+        {
+            //CurrData.CreateDatabase();
+            CreateDatabaseFile createDBform = new CreateDatabaseFile();
+            createDBform.ShowDialog();
+        }
+
+        private void selectDBLocationBtn_Click(object sender, EventArgs e)
+        {
+            DBLocationForm locationForm = new DBLocationForm();
+            locationForm.ShowDialog();
         }
     }
 }
