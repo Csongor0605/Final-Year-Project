@@ -16,6 +16,7 @@ namespace Final_Year_Project
         {
             InitializeComponent();
             //CurrData.LoadLocalDatabase();
+            appointmentListBox.DisplayMember = "DisplayFormat";
         }
 
         private void DisplayFields(Field[] fields)
@@ -47,6 +48,49 @@ namespace Final_Year_Project
 
                 detailDisplayPanel.Controls.Add(tempFieldBox);
             }
+
+            GroupBox appointmentsGroupBox = new GroupBox();
+            Button addAppBtn = new Button();
+            ListBox clientAppointmentListBox = new ListBox();
+            appointmentsGroupBox.SuspendLayout();
+            // 
+            // appointmentsGroupBox
+            // 
+            appointmentsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            appointmentsGroupBox.Controls.Add(addAppBtn);
+            appointmentsGroupBox.Controls.Add(clientAppointmentListBox);
+            appointmentsGroupBox.Location = new System.Drawing.Point(4, nextHeight);
+            appointmentsGroupBox.Name = "appointmentsGroupBox";
+            appointmentsGroupBox.Size = new System.Drawing.Size(741, 275);
+            appointmentsGroupBox.TabIndex = 0;
+            appointmentsGroupBox.TabStop = false;
+            appointmentsGroupBox.Text = "Appointments";
+            // 
+            // clientAppointmentListBox
+            // 
+            clientAppointmentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            clientAppointmentListBox.FormattingEnabled = true;
+            clientAppointmentListBox.ItemHeight = 16;
+            clientAppointmentListBox.Location = new System.Drawing.Point(7, 28);
+            clientAppointmentListBox.Name = "clientAppointmentListBox";
+            clientAppointmentListBox.Size = new System.Drawing.Size(728, 180);
+            clientAppointmentListBox.TabIndex = 0;
+            // 
+            // addAppBtn
+            // 
+            addAppBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            addAppBtn.Location = new System.Drawing.Point(7, 215);
+            addAppBtn.Name = "addAppBtn";
+            addAppBtn.Size = new System.Drawing.Size(728, 54);
+            addAppBtn.TabIndex = 1;
+            addAppBtn.Text = "Add Appointment";
+            addAppBtn.UseVisualStyleBackColor = true;
+
+            appointmentsGroupBox.ResumeLayout(false);
+            detailDisplayPanel.Controls.Add(appointmentsGroupBox);
         }
 
         public void ClearFieldDisplay()
@@ -99,13 +143,9 @@ namespace Final_Year_Project
         {
             string tempFieldName = ((TextBox)sender).Parent.Text;
             string data = ((TextBox)sender).Text;
-            int id;
+            int id; //Get id from somewhere else otherwise this will break when id hidden as it should be, use listBox
             int.TryParse(detailDisplayPanel.Controls["Idbox"].Controls["Idtextbox"].Text,out id);
             CurrData.UpdateField(id,tempFieldName,data);
-            //get sender.parent.name for field name
-            //get client ID
-            //validate
-            //tell CurrDatas update client(clientID).field with new info
         }
 
         private void createDB_Btn_Click(object sender, EventArgs e)
@@ -118,7 +158,13 @@ namespace Final_Year_Project
         private void selectDBLocationBtn_Click(object sender, EventArgs e)
         {
             DBLocationForm locationForm = new DBLocationForm();
-            locationForm.ShowDialog();
+            if(locationForm.ShowDialog() == DialogResult.OK)
+                CurrData.LoadLocalDatabase();
+        }
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            appointmentListBox.DataSource = CurrData.GetAppointmentsByDate(monthCalendar1.SelectionStart);
         }
     }
 }

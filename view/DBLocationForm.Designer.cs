@@ -37,17 +37,19 @@
             // 
             // locationTextBox
             // 
-            this.locationTextBox.Location = new System.Drawing.Point(13, 13);
+            this.locationTextBox.Location = new System.Drawing.Point(17, 16);
+            this.locationTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.locationTextBox.Name = "locationTextBox";
-            this.locationTextBox.Size = new System.Drawing.Size(281, 20);
+            this.locationTextBox.Size = new System.Drawing.Size(373, 22);
             this.locationTextBox.TabIndex = 0;
             // 
             // browseBtn
             // 
             this.browseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.browseBtn.Location = new System.Drawing.Point(301, 13);
+            this.browseBtn.Location = new System.Drawing.Point(401, 16);
+            this.browseBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.browseBtn.Name = "browseBtn";
-            this.browseBtn.Size = new System.Drawing.Size(82, 20);
+            this.browseBtn.Size = new System.Drawing.Size(109, 25);
             this.browseBtn.TabIndex = 1;
             this.browseBtn.Text = "Browse";
             this.browseBtn.UseVisualStyleBackColor = true;
@@ -56,9 +58,10 @@
             // confirmBtn
             // 
             this.confirmBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmBtn.Location = new System.Drawing.Point(300, 71);
+            this.confirmBtn.Location = new System.Drawing.Point(400, 87);
+            this.confirmBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.confirmBtn.Name = "confirmBtn";
-            this.confirmBtn.Size = new System.Drawing.Size(75, 23);
+            this.confirmBtn.Size = new System.Drawing.Size(100, 28);
             this.confirmBtn.TabIndex = 2;
             this.confirmBtn.Text = "Confirm";
             this.confirmBtn.UseVisualStyleBackColor = true;
@@ -67,9 +70,10 @@
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBtn.Location = new System.Drawing.Point(219, 71);
+            this.cancelBtn.Location = new System.Drawing.Point(292, 87);
+            this.cancelBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.Size = new System.Drawing.Size(100, 28);
             this.cancelBtn.TabIndex = 3;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -78,17 +82,20 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"SQLite|*.sqlite|All Files|*.*\"";
+            this.openFileDialog1.Title = "Select Existing SQLite File";
             // 
             // DBLocationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 104);
+            this.ClientSize = new System.Drawing.Size(519, 128);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.confirmBtn);
             this.Controls.Add(this.browseBtn);
             this.Controls.Add(this.locationTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "DBLocationForm";
             this.Text = "Select Databse Location";
             this.ResumeLayout(false);

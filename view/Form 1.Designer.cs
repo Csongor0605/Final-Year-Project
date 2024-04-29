@@ -41,15 +41,24 @@
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.createDB_Btn = new System.Windows.Forms.RibbonButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.detailDisplayPanel = new System.Windows.Forms.Panel();
             this.selectDBLocationBtn = new System.Windows.Forms.RibbonButton();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.detailDisplayPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.appointmentBox = new System.Windows.Forms.GroupBox();
+            this.appointmentListBox = new System.Windows.Forms.ListBox();
+            this.clientSearch = new System.Windows.Forms.TextBox();
+            this.detailDisplayPanel.SuspendLayout();
+            this.appointmentBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon1
             // 
+            this.ribbon1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ribbon1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ribbon1.Location = new System.Drawing.Point(0, 0);
+            this.ribbon1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbon1.Minimized = false;
             this.ribbon1.Name = "ribbon1";
             // 
@@ -67,7 +76,7 @@
             // 
             this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.ribbon1.Size = new System.Drawing.Size(1009, 122);
+            this.ribbon1.Size = new System.Drawing.Size(1377, 150);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.Tabs.Add(this.ribbonTab2);
@@ -158,23 +167,6 @@
             this.createDB_Btn.Text = "Create";
             this.createDB_Btn.Click += new System.EventHandler(this.createDB_Btn_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 129);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(183, 433);
-            this.listBox1.TabIndex = 1;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // detailDisplayPanel
-            // 
-            this.detailDisplayPanel.AutoScroll = true;
-            this.detailDisplayPanel.Location = new System.Drawing.Point(208, 128);
-            this.detailDisplayPanel.Name = "detailDisplayPanel";
-            this.detailDisplayPanel.Size = new System.Drawing.Size(543, 433);
-            this.detailDisplayPanel.TabIndex = 2;
-            // 
             // selectDBLocationBtn
             // 
             this.selectDBLocationBtn.Image = ((System.Drawing.Image)(resources.GetObject("selectDBLocationBtn.Image")));
@@ -184,18 +176,92 @@
             this.selectDBLocationBtn.Text = "Set Database Location";
             this.selectDBLocationBtn.Click += new System.EventHandler(this.selectDBLocationBtn_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(17, 191);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(243, 500);
+            this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // detailDisplayPanel
+            // 
+            this.detailDisplayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailDisplayPanel.AutoScroll = true;
+            this.detailDisplayPanel.Location = new System.Drawing.Point(268, 159);
+            this.detailDisplayPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.detailDisplayPanel.MinimumSize = new System.Drawing.Size(317, 245);
+            this.detailDisplayPanel.Name = "detailDisplayPanel";
+            this.detailDisplayPanel.Size = new System.Drawing.Size(748, 536);
+            this.detailDisplayPanel.TabIndex = 2;
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.monthCalendar1.Location = new System.Drawing.Point(12, 27);
+            this.monthCalendar1.MaxSelectionCount = 1;
+            this.monthCalendar1.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 3;
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
+            // 
+            // appointmentBox
+            // 
+            this.appointmentBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.appointmentBox.Controls.Add(this.appointmentListBox);
+            this.appointmentBox.Controls.Add(this.monthCalendar1);
+            this.appointmentBox.Location = new System.Drawing.Point(1023, 158);
+            this.appointmentBox.Name = "appointmentBox";
+            this.appointmentBox.Size = new System.Drawing.Size(307, 533);
+            this.appointmentBox.TabIndex = 3;
+            this.appointmentBox.TabStop = false;
+            this.appointmentBox.Text = "Appointments";
+            // 
+            // appointmentListBox
+            // 
+            this.appointmentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.appointmentListBox.FormattingEnabled = true;
+            this.appointmentListBox.ItemHeight = 16;
+            this.appointmentListBox.Location = new System.Drawing.Point(12, 247);
+            this.appointmentListBox.Name = "appointmentListBox";
+            this.appointmentListBox.Size = new System.Drawing.Size(285, 276);
+            this.appointmentListBox.TabIndex = 4;
+            // 
+            // clientSearch
+            // 
+            this.clientSearch.Location = new System.Drawing.Point(17, 159);
+            this.clientSearch.MaxLength = 250;
+            this.clientSearch.Name = "clientSearch";
+            this.clientSearch.Size = new System.Drawing.Size(243, 22);
+            this.clientSearch.TabIndex = 4;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 575);
+            this.ClientSize = new System.Drawing.Size(1337, 708);
+            this.Controls.Add(this.clientSearch);
+            this.Controls.Add(this.appointmentBox);
             this.Controls.Add(this.detailDisplayPanel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ribbon1);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Main Window";
+            this.detailDisplayPanel.ResumeLayout(false);
+            this.appointmentBox.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -208,7 +274,7 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Panel detailDisplayPanel;
+        private System.Windows.Forms.FlowLayoutPanel detailDisplayPanel;
         private System.Windows.Forms.RibbonButton addClientBtn;
         private System.Windows.Forms.RibbonButton saveBtn;
         private System.Windows.Forms.RibbonButton loadBtn;
@@ -216,6 +282,10 @@
         private System.Windows.Forms.RibbonButton createDB_Btn;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton selectDBLocationBtn;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.GroupBox appointmentBox;
+        private System.Windows.Forms.ListBox appointmentListBox;
+        private System.Windows.Forms.TextBox clientSearch;
     }
 }
 

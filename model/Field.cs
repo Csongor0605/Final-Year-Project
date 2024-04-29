@@ -11,7 +11,7 @@ namespace Final_Year_Project
     //^List of types of field
     public class Field
     {
-        public string fieldName; //Field name to disply, not as in database
+        public string fieldName; //Field name to disply, not as in database, should be converted each way in CurrData
         protected object data;
 
         public Field(string fieldName, object data)
@@ -84,7 +84,7 @@ namespace Final_Year_Project
         {
             if (data == null)
                 return "";
-            return data.Date.ToShortDateString();
+            return data.ToString("yyyy-MM-dd");
         }
 
         public new void SetData(object data)
@@ -115,7 +115,7 @@ namespace Final_Year_Project
         {
             if (data == null)
                 return "";
-            return data.ToShortDateString();
+            return data.ToString("yyyy-MM-dd HH:mm");
         }
 
         public new void SetData(object data)

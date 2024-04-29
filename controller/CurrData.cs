@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Final_Year_Project.model;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,13 +11,17 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Final_Year_Project
 {
@@ -28,9 +33,16 @@ namespace Final_Year_Project
         public static Dictionary<string,Tuple< string, bool>> databaseScheme = new Dictionary<string, Tuple<string,bool>>();   //Key is display name, tuple contains data type as string, and if it is nullable
         public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL" };
         private static List<UpdatedField> changes = new List<UpdatedField>();
-        public static object GetFieldValue(int clientIndex,string fieldName) 
+        public static string GetClientName(int clientID) 
         {
-            return null;
+            foreach (ClientData client in clientData)
+            {
+                if (client.Id == clientID)
+                {
+                    return client.displayName;
+                }
+            }
+            return "No Such Client Found";
         }
 
         private static bool ValidateInput(string fieldName, string data)
@@ -71,11 +83,51 @@ namespace Final_Year_Project
 
                 foreach (UpdatedField field in changes)
                 {
-                    command.CommandText = "UPDATE Client SET " + field.getFieldName().Trim().Replace(' ', '_') + "='" + field.getValue().ToString() + "' WHERE Id=" + field.getId().ToString();
+                    command.CommandText = "UPDATE Client SET " + ConvertFieldNameToDBColumn(field.getFieldName()) + "='" + field.getValue().ToString() + "' WHERE Id=" + field.getId().ToString();
                     command.ExecuteNonQuery();
                 }
                 con.Close();
             }
+        }
+
+        private static bool SaveNewClientToDB(ClientData newClient)
+        {
+            //try
+            //{
+                using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+                {
+                    con.Open();
+                    SQLiteCommand command = con.CreateCommand();
+                    string columnNames = "";
+                    string values = "";
+
+                    foreach (Field field in newClient.GetAllFields())
+                    {
+                        columnNames += ConvertFieldNameToDBColumn(field.fieldName) + ',';
+                        if (field.GetType() == typeof(FieldDateTime) || field.GetType() == typeof(FieldDate))
+                            values += "datetime(\"" + field.GetDataAsString() + "\"),";
+                        else
+                            values += field.GetDataAsString() + ",";
+                    }
+                    columnNames = columnNames.TrimEnd(',');
+                    values = values.TrimEnd(',');
+                    command.CommandText = "INSERT INTO Client(" + columnNames + ") VALUES(" + values + ");";
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            //}
+            //catch (Exception ex) { return false; }
+            return true;
+        }
+
+        private static string ConvertFieldNameToDBColumn(string fieldName)
+        {
+            return fieldName.Trim().Replace(' ', '_');
+        }
+
+        private static string ConvertColumnNameToDisplayName(string columnName)
+        {
+            return columnName.Trim().Replace('_', ' ');
         }
 
         public static void LoadLocalDatabase() 
@@ -104,14 +156,14 @@ namespace Final_Year_Project
                     //List<Field> tempFields = new List<Field>();
                     for (int i = 0; i < reader.VisibleFieldCount; i++)
                     {
-                        string type = reader.GetFieldType(i).ToString();
+                        string type = databaseScheme[ConvertColumnNameToDisplayName(reader.GetName(i))].Item1;
                         switch (type)
                         {
                             case "System.DateTime":
                                 //tempFields.Add(new FieldDateTime(reader.GetName(i), reader[i]));
                                 break;
                             default:
-                                tempFields.Add(new Field(reader.GetName(i), reader[i]));
+                                tempFields.Add(new Field(ConvertColumnNameToDisplayName(reader.GetName(i)), reader[i]));
                                 break;
                         }
                     }
@@ -149,8 +201,12 @@ namespace Final_Year_Project
 
                 fields = temp.ToArray();
             }
-            
-            clientData.Add(new ClientData(fields));
+            //wrap in try catch block
+                ClientData newClient = new ClientData(fields);
+                if (SaveNewClientToDB(newClient))
+                    clientData.Add(newClient);
+          
+
         }
 
         public static void CreateNewClient(ClientData clientToAdd) { clientData.Add(clientToAdd); }
@@ -177,6 +233,58 @@ namespace Final_Year_Project
             //    System.Windows.Forms.MessageBox.Show("Failed to load database scheme");
             //    databaseScheme.Clear();
             //}
+        }
+
+
+
+        public static Appointment[] GetAppointmentsByDate(DateTime date)
+        {
+            string searchDate = date.ToString("yyyy-MM-dd");
+            List<Appointment> tempAppointments = new List<Appointment>();
+
+            if (databaseScheme.Count == 0)  //For checking if a database is even loaded
+                return null;
+
+            using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            { 
+                con.Open();
+                SQLiteCommand command = con.CreateCommand();
+                command.CommandText = "SELECT * FROM Appointment WHERE date(Time) = date(\"" + searchDate + "\");";
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = int.Parse(reader["ClientID"].ToString());
+                    DateTime time = Convert.ToDateTime(reader["Time"]);
+                    string notes = reader["Notes"].ToString();
+
+                    tempAppointments.Add(new Appointment(id, time, notes));
+                }
+            }
+            return tempAppointments.ToArray();
+        }
+
+        public static Appointment[] GetAppointmentsByClientID(int id)
+        {
+            List<Appointment> tempAppointments = new List<Appointment>();
+
+            if (databaseScheme.Count == 0)  //For checking if a database is even loaded
+                return null;
+
+            using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            {
+                con.Open();
+                SQLiteCommand command = con.CreateCommand();
+                command.CommandText = "SELECT * FROM Appointment WHERE ClientID = "+id+";";
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    DateTime time = Convert.ToDateTime(reader["Time"]);
+                    string notes = reader["Notes"].ToString();
+
+                    tempAppointments.Add(new Appointment(id, time, notes));
+                }
+            }
+            return tempAppointments.ToArray();
         }
     }
 }

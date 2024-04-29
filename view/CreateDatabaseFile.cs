@@ -155,6 +155,14 @@ namespace Final_Year_Project
                         command.CommandText = commandText;
 
                         command.ExecuteNonQuery();
+
+                        command.CommandText = "CREATE TABLE Appointment(ClientID INTEGER NOT NULL," +
+                            "                                           Time DATETIME NOT NULL," +
+                            "                                           Notes TEXT NULL," +
+                            "                                           PRIMARY KEY(ClientID,Time)," +
+                            "                                           FOREIGN KEY(ClientID) REFERENCES Client(Id))";
+
+                        command.ExecuteNonQuery();
                     }
                 }
                 catch (Exception e)
