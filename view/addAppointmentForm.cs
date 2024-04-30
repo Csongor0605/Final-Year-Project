@@ -33,7 +33,7 @@ namespace Final_Year_Project
             //Set DiagResult to OK
             DateTime time = dateTimePicker1.Value;
 
-            if (time < DateTime.Now)
+            if (time < DateTime.Now)    //Not allowed time in the past
                 return;
             if (time.Date == DateTime.Today)
                 if (MessageBox.Show("This appointment time would be today, is this correct?", "Confirm Date", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
