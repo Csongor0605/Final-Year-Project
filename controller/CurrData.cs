@@ -33,7 +33,7 @@ namespace Final_Year_Project
         public static Dictionary<string,Tuple< string, bool>> databaseScheme = new Dictionary<string, Tuple<string,bool>>();   //Key is display name, tuple contains data type as string, and if it is nullable
         public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL" };
         private static List<UpdatedField> changes = new List<UpdatedField>();
-        public static string GetClientName(int clientID) 
+        public static string GetClientName(long clientID) 
         {
             foreach (ClientData client in clientData)
             {
@@ -53,7 +53,7 @@ namespace Final_Year_Project
             return true;
         }
 
-        public static void UpdateField(int clientID,string fieldName,object newData)
+        public static void UpdateField(long clientID,string fieldName,object newData)
         {
             UpdatedField change;
             if (!ValidateInput(fieldName, newData.ToString()))
@@ -263,7 +263,7 @@ namespace Final_Year_Project
             return tempAppointments.ToArray();
         }
 
-        public static Appointment[] GetAppointmentsByClientID(int id)
+        public static Appointment[] GetAppointmentsByClientID(long id)
         {
             List<Appointment> tempAppointments = new List<Appointment>();
 
@@ -285,6 +285,29 @@ namespace Final_Year_Project
                 }
             }
             return tempAppointments.ToArray();
+        }
+
+        public static bool ClientHasAppointmentOnDate(long clientID ,DateTime date)
+        {
+            bool returnValue = false;
+            foreach(Appointment app in GetAppointmentsByClientID(clientID)) 
+            { 
+                if (app.Time.Date == date.Date)
+                    returnValue = true;
+            }
+            return returnValue;
+        }
+
+        public static void SaveAppointment(Appointment appointment)
+        {
+            //Save to db
+            using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            {
+                con.Open();
+                SQLiteCommand command = con.CreateCommand();
+                command.CommandText = "INSERT INTO Appointment(ClientID,Time,Notes) VALUES(" + appointment.ClientID + ",datetime(\"" + appointment.Time.ToString("yyyy-MM-dd HH:mm") + "\"),\""+appointment.Notes+"\");";
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

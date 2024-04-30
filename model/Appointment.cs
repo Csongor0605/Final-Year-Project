@@ -7,13 +7,13 @@ using System.Web.UI;
 
 namespace Final_Year_Project.model
 {
-    internal class Appointment
+    public class Appointment
     {
-        private int clientID;
+        private long clientID;
         private DateTime time;
         private string notes;
 
-        public Appointment(int id, DateTime time, string notes) 
+        public Appointment(long id, DateTime time, string notes) 
         { 
             clientID = id;
             this.time = time;
@@ -27,7 +27,7 @@ namespace Final_Year_Project.model
             this.notes = oldAppointment.notes;
         }
 
-        public int ClientID { get {  return clientID; } }
+        public long ClientID { get {  return clientID; } }
         public DateTime Time { get { return time; } }
         public string Notes { get { return notes;} }
         public override string ToString() { return "Appointment: at" + time + "\nclientID: " + clientID; }

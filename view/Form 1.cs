@@ -12,11 +12,14 @@ namespace Final_Year_Project
 {
     public partial class Form1 : Form
     {
+        private long displayedID = 0; //Set to 0 when not displaying client details, long because of exception thrown
+
         public Form1()
         {
             InitializeComponent();
             //CurrData.LoadLocalDatabase();
             appointmentListBox.DisplayMember = "DisplayFormat";
+            setAppointmentListSource();
         }
 
         private void DisplayFields(Field[] fields)
@@ -28,6 +31,8 @@ namespace Final_Year_Project
             int spacing = 10;
             foreach (Field field in fields)
             {
+                if (field.fieldName == "Id")
+                    displayedID = (long)field.GetData();
                 GroupBox tempFieldBox = new System.Windows.Forms.GroupBox();
                 TextBox tempFieldTextBox = new System.Windows.Forms.TextBox();
 
@@ -77,6 +82,7 @@ namespace Final_Year_Project
             clientAppointmentListBox.Name = "clientAppointmentListBox";
             clientAppointmentListBox.Size = new System.Drawing.Size(728, 180);
             clientAppointmentListBox.TabIndex = 0;
+            clientAppointmentListBox.DataSource = CurrData.GetAppointmentsByClientID(displayedID);
             // 
             // addAppBtn
             // 
@@ -88,6 +94,8 @@ namespace Final_Year_Project
             addAppBtn.TabIndex = 1;
             addAppBtn.Text = "Add Appointment";
             addAppBtn.UseVisualStyleBackColor = true;
+            addAppBtn.Click += addAppBtn_Click;
+;
 
             appointmentsGroupBox.ResumeLayout(false);
             detailDisplayPanel.Controls.Add(appointmentsGroupBox);
@@ -164,7 +172,24 @@ namespace Final_Year_Project
 
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
+            setAppointmentListSource();
+        }
+
+        private void setAppointmentListSource()
+        {
             appointmentListBox.DataSource = CurrData.GetAppointmentsByDate(monthCalendar1.SelectionStart);
+        }
+
+        private void addAppBtn_Click(object sender, EventArgs e)
+        {
+            addAppointmentForm addAppForm = new addAppointmentForm(displayedID);
+            if (addAppForm.ShowDialog() == DialogResult.OK)
+                CurrData.SaveAppointment(addAppForm.returnValue);
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
         }
     }
 }

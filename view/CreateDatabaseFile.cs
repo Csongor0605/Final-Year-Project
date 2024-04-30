@@ -127,8 +127,10 @@ namespace Final_Year_Project
             }
             else
             {
-                string commandText =    "CREATE TABLE Client(" +
-                                        "Id INTEGER NOT NULL, ";
+                string commandText =
+                    "CREATE TABLE Client(" +
+                    "Id INTEGER NOT NULL, " +
+                    "Name NCHAR(100) NOT NULL";
 
                 foreach (Panel field in fieldListPanel.Controls.Find("FieldPanel", true))
                 {

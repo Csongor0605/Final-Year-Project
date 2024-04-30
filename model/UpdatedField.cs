@@ -8,12 +8,12 @@ namespace Final_Year_Project
 {
     internal class UpdatedField
     {
-        private int id;
+        private long id;
         private string fieldName;
         private object newValue;
         private object oldValue;
 
-        public UpdatedField(int id, string fieldName, object newValue, object oldValue)
+        public UpdatedField(long id, string fieldName, object newValue, object oldValue)
         {
             this.id = id;
             this.fieldName = fieldName;
@@ -21,7 +21,7 @@ namespace Final_Year_Project
             this.oldValue = oldValue;
         }
 
-        public int getId()
+        public long getId()
         {
             return id;
         }
