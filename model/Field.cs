@@ -47,13 +47,15 @@ namespace Final_Year_Project
 
         public new void SetData(object data)
         {
-            this.data = data.ToString();
+            string temp  = data.ToString();
+            if(!(temp.Length >= 100))
+                this.data = data.ToString();
         }
     }
 
     class FieldInteger: Field
     { 
-        private new int data;
+        private new long data;
 
         public FieldInteger(string fieldName, object data) : base(fieldName, data)
         {

@@ -87,15 +87,16 @@ namespace Final_Year_Project
                     }
                     else //Valid input
                     {
-                        //Create Field object, of correct type
-                        //Add to return arr
-                        //Eventually return the arr
-
+                    //Create Field object, of correct type
+                    //Add to return arr
+                    //Eventually return the arr
+                    try
+                    {
                         Field newField;
 
                         switch (temp_dataType)
                         {
-                            case ("NCHAR(100)"): 
+                            case ("NCHAR(100)"):
                                 newField = new FieldShortString(field.Text, input);
                                 break;
                             case ("INTEGER"):
@@ -119,6 +120,12 @@ namespace Final_Year_Project
                         }
 
                         returnValue.Add(newField);
+                    }
+                    catch 
+                    {
+                        returnValue.Clear();
+                        MessageBox.Show("Parseing of inputs faild, Please check each input value matches the type of input expected");
+                    }
                     }
                 //}
                 //catch (Exception ex) { throw ex;}//Make write error and return to break loop and fuction

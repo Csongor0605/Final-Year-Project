@@ -13,7 +13,8 @@ namespace Final_Year_Project
 {
     public partial class Form1 : Form
     {
-        private long displayedID = 0; //Set to 0 when not displaying client details, long because of exception thrown
+        private long displayedID = -1; //Set to -1 when not displaying client details, long because of exception thrown
+        private Appointment displayedApp = null;
 
         public Form1()
         {
@@ -25,7 +26,9 @@ namespace Final_Year_Project
 
         private void DisplayFields(Field[] fields)
         {
-            detailDisplayPanel.Controls.Clear();
+            ClearFieldDisplay();
+            displayedApp = null;
+
             //Create field boxes
             //Set name and data text in field boxes
             int nextHeight = 0;
@@ -68,7 +71,7 @@ namespace Final_Year_Project
             appointmentsGroupBox.Controls.Add(clientAppointmentListBox);
             appointmentsGroupBox.Location = new System.Drawing.Point(4, nextHeight);
             appointmentsGroupBox.Name = "appointmentsGroupBox";
-            appointmentsGroupBox.Size = new System.Drawing.Size(741, 275);
+            appointmentsGroupBox.Size = new System.Drawing.Size(450, 275);
             appointmentsGroupBox.TabIndex = 0;
             appointmentsGroupBox.TabStop = false;
             appointmentsGroupBox.Text = "Appointments";
@@ -81,9 +84,11 @@ namespace Final_Year_Project
             clientAppointmentListBox.ItemHeight = 16;
             clientAppointmentListBox.Location = new System.Drawing.Point(7, 28);
             clientAppointmentListBox.Name = "clientAppointmentListBox";
-            clientAppointmentListBox.Size = new System.Drawing.Size(728, 180);
+            clientAppointmentListBox.Size = new System.Drawing.Size(440, 180);
             clientAppointmentListBox.TabIndex = 0;
             clientAppointmentListBox.DataSource = CurrData.GetAppointmentsByClientID(displayedID);
+            clientAppointmentListBox.DisplayMember = "DisplayFormat";
+            clientAppointmentListBox.DoubleClick += (sender, e) => { appointmentListBox_DoubleClick(sender, e); };
             // 
             // addAppBtn
             // 
@@ -91,7 +96,7 @@ namespace Final_Year_Project
             | System.Windows.Forms.AnchorStyles.Right)));
             addAppBtn.Location = new System.Drawing.Point(7, 215);
             addAppBtn.Name = "addAppBtn";
-            addAppBtn.Size = new System.Drawing.Size(728, 54);
+            addAppBtn.Size = new System.Drawing.Size(440, 54);
             addAppBtn.TabIndex = 1;
             addAppBtn.Text = "Add Appointment";
             addAppBtn.UseVisualStyleBackColor = true;
@@ -104,14 +109,16 @@ namespace Final_Year_Project
 
         private void DisplayAppointment(Appointment appointment)
         {
-            detailDisplayPanel.Controls.Clear();
-
+            ClearFieldDisplay();
+            displayedID = -1;
+            displayedApp = appointment;
 
             System.Windows.Forms.GroupBox clientNameGroupBox;
             System.Windows.Forms.TextBox clientNameTextBox;
             System.Windows.Forms.GroupBox timePickerGroupBox;
             System.Windows.Forms.DateTimePicker dateTimePicker1;
             System.Windows.Forms.Button changeTimeBtn;
+            System.Windows.Forms.Button gotoClientBtn;
             System.Windows.Forms.GroupBox notesGroupBox;
             System.Windows.Forms.TextBox textBox1;
             System.Windows.Forms.Button saveChangesBtn;
@@ -124,6 +131,7 @@ namespace Final_Year_Project
             notesGroupBox = new System.Windows.Forms.GroupBox();
             textBox1 = new System.Windows.Forms.TextBox();
             changeTimeBtn = new System.Windows.Forms.Button();
+            gotoClientBtn = new System.Windows.Forms.Button();
             saveChangesBtn = new System.Windows.Forms.Button();
             deleteBtn = new System.Windows.Forms.Button();
 
@@ -143,11 +151,12 @@ namespace Final_Year_Project
             // clientNameGroupBox
             // 
             clientNameGroupBox.Controls.Add(clientNameTextBox);
+            clientNameGroupBox.Controls.Add(gotoClientBtn);
             clientNameGroupBox.Location = new System.Drawing.Point(2, 2);
             clientNameGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             clientNameGroupBox.Name = "clientNameGroupBox";
             clientNameGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            clientNameGroupBox.Size = new System.Drawing.Size(310, 52);
+            clientNameGroupBox.Size = new System.Drawing.Size(402, 52);
             clientNameGroupBox.TabIndex = 0;
             clientNameGroupBox.TabStop = false;
             clientNameGroupBox.Text = "Client Name";
@@ -166,6 +175,16 @@ namespace Final_Year_Project
 
             Tuple<long, string> client = new Tuple<long, string>(appointment.ClientID, CurrData.GetClientName(appointment.ClientID));
             clientNameTextBox.Text = client.Item2 + "  [" + client.Item1.ToString() + "]";
+            // 
+            // gotoClientBtn
+            // 
+            gotoClientBtn.Location = new System.Drawing.Point(312, 17);
+            gotoClientBtn.Name = "gotoClientBtn";
+            gotoClientBtn.Size = new System.Drawing.Size(84, 29);
+            gotoClientBtn.TabIndex = 1;
+            gotoClientBtn.Text = "Go To";
+            gotoClientBtn.UseVisualStyleBackColor = true;
+            gotoClientBtn.Click += gotoClientBtn_Click;
 
             // 
             // timePickerGroupBox
@@ -223,6 +242,7 @@ namespace Final_Year_Project
             changeTimeBtn.TabIndex = 1;
             changeTimeBtn.Text = "Change";
             changeTimeBtn.UseVisualStyleBackColor = true;
+            changeTimeBtn.Click += (sender,e) => { changeAppTimeBtn_Click(sender, e, dateTimePicker1); };
             // 
             // saveChangesBtn
             // 
@@ -232,6 +252,7 @@ namespace Final_Year_Project
             saveChangesBtn.TabIndex = 3;
             saveChangesBtn.Text = "Save Changes";
             saveChangesBtn.UseVisualStyleBackColor = true;
+            saveChangesBtn.Click += (sender, e) => { saveAppBtn_Click(sender, e, displayedApp,dateTimePicker1,textBox1.Text); };
             // 
             // deleteBtn
             // 
@@ -241,6 +262,7 @@ namespace Final_Year_Project
             deleteBtn.TabIndex = 4;
             deleteBtn.Text = "Delete";
             deleteBtn.UseVisualStyleBackColor = true;
+            deleteBtn.DoubleClick += deleteAppBtn_Click;
 
 
             timePickerGroupBox.ResumeLayout(false);
@@ -255,6 +277,9 @@ namespace Final_Year_Project
         public void ClearFieldDisplay()
         {
             listBox1.SelectedIndex = -1;
+            appointmentListBox.SelectedIndex = -1;
+            displayedApp = null;
+            displayedID = -1;
             detailDisplayPanel.Controls.Clear();
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -317,8 +342,8 @@ namespace Final_Year_Project
         private void selectDBLocationBtn_Click(object sender, EventArgs e)
         {
             DBLocationForm locationForm = new DBLocationForm();
-            if(locationForm.ShowDialog() == DialogResult.OK)
-                CurrData.LoadLocalDatabase();
+            if (locationForm.ShowDialog() == DialogResult.OK)
+                loadBtn_Click(null, null);
         }
 
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
@@ -351,6 +376,46 @@ namespace Final_Year_Project
         private void ribbonButton1_DoubleClick(object sender, EventArgs e)
         {
             DisplayAppointment(new Appointment(-1, DateTime.Now.AddMinutes(3600), "This is the test button, this should not be enabled unless testing"));
+        }
+
+        private void changeAppTimeBtn_Click(Object sender, EventArgs e, DateTimePicker timePicker)
+        {
+            timePicker.Enabled = true;
+        }
+
+        private void saveAppBtn_Click(Object sender, EventArgs e, Appointment app, DateTimePicker timePicker, string notes)
+        {
+            if (app.Time != timePicker.Value || notes != app.Notes)
+                CurrData.SaveChangesToAppointment(app, timePicker.Value, notes);
+        }
+
+        private void appListSelect_Click(Appointment selected)
+        {
+            DisplayAppointment(selected);
+        }
+
+        private void appointmentListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void appointmentListBox_DoubleClick(object sender, EventArgs e)
+        {
+            ListBox listSender = (ListBox)sender;
+            if (listSender.SelectedIndex != -1)
+                appListSelect_Click((Appointment)listSender.Items[listSender.SelectedIndex]);
+        }
+
+        private void deleteAppBtn_Click(object obj, EventArgs e)
+        {
+            if (MessageBox.Show("This action will delete this appointment. Are you sure this is what you want?", "Delete Appointment", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+            CurrData.DeleteAppointment(displayedApp);
+        }
+
+        private void gotoClientBtn_Click(object sender, EventArgs e)
+        {
+            DisplayFields(CurrData.GetClientFields(displayedApp.ClientID));
         }
     }
 }

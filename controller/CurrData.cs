@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,6 +44,18 @@ namespace Final_Year_Project
                 }
             }
             return "No Such Client Found";
+        }
+
+        public static Field[] GetClientFields(long clientID)
+        {
+            foreach (ClientData client in clientData)
+            {
+                if (client.Id == clientID)
+                {
+                    return client.GetAllFields();
+                }
+            }
+            return null;
         }
 
         private static bool ValidateInput(string fieldName, string data)
@@ -104,10 +117,12 @@ namespace Final_Year_Project
                     foreach (Field field in newClient.GetAllFields())
                     {
                         columnNames += ConvertFieldNameToDBColumn(field.fieldName) + ',';
-                        if (field.GetType() == typeof(FieldDateTime) || field.GetType() == typeof(FieldDate))
-                            values += "datetime(\"" + field.GetDataAsString() + "\"),";
-                        else
-                            values += field.GetDataAsString() + ",";
+                    if (field.GetType() == typeof(FieldDateTime) || field.GetType() == typeof(FieldDate))
+                        values += "datetime(\"" + field.GetDataAsString() + "\"),";
+                    else if (field.GetType() == typeof(FieldLongString) || field.GetType() == typeof(FieldShortString))
+                        values += "\""+field.GetDataAsString() + "\",";
+                    else
+                        values += field.GetDataAsString() + ",";
                     }
                     columnNames = columnNames.TrimEnd(',');
                     values = values.TrimEnd(',');
@@ -188,7 +203,7 @@ namespace Final_Year_Project
 
         public static void CreateNewClient(Field[] fields)
         {
-            //Need get Id from database
+            //This bit was usefull once upon a time, I dont dare get rid of it but client should not be created without any fields
             if (fields == null)
             {
                 List<Field> temp = new List<Field>();
@@ -209,7 +224,7 @@ namespace Final_Year_Project
 
         }
 
-        public static void CreateNewClient(ClientData clientToAdd) { clientData.Add(clientToAdd); }
+        public static void CreateNewClient(ClientData clientToAdd) { clientData.Add(clientToAdd); } //unused and for good reason,should not just add to model, use other method with fields instead
 
         private static void LoadDatabaseScheme(SQLiteConnection con)
         {
@@ -306,6 +321,45 @@ namespace Final_Year_Project
                 con.Open();
                 SQLiteCommand command = con.CreateCommand();
                 command.CommandText = "INSERT INTO Appointment(ClientID,Time,Notes) VALUES(" + appointment.ClientID + ",datetime(\"" + appointment.Time.ToString("yyyy-MM-dd HH:mm") + "\"),\""+appointment.Notes+"\");";
+                command.ExecuteNonQuery();
+            }
+        }
+        public static void SaveChangesToAppointment(Appointment oldApp,DateTime? newTime = null,string notes =null)
+        {
+            //DateTime? Means Nullable<DateTime> used as default value
+
+            string commandText = "UPDATE Appointment SET ";
+
+            if (newTime != null)
+            { 
+                commandText += "Time = datetime(\""+newTime?.ToString("yyyy-MM-dd HH:mm")+"\"), ";
+            }
+            if (notes != null)
+            {
+                commandText += "Notes = \"" + notes + "\" ";
+            }
+            commandText = commandText.TrimEnd(',');
+
+            // WHERE ClientID = 1 AND datetime(Time) = datetime("2024-05-02 11:45");
+
+            commandText += "WHERE ClientID = " + oldApp.ClientID + " AND datetime(\"Time\") = datetime(\"" + oldApp.Time.ToString("yyyy-MM-dd HH:mm") + "\");";
+
+            using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            {
+                con.Open();
+                SQLiteCommand command = con.CreateCommand();
+                command.CommandText = commandText;
+                command.ExecuteNonQuery();
+            }
+        }
+        public static void DeleteAppointment(Appointment appointment) 
+        {
+            //DELETE FROM Appointment Where ClientID = 1 AND datetime(Time) = datetime("2024-05-04 11:45:00");
+            using (SQLiteConnection con = new SQLiteConnection("Data Source = " + connectionString + "; Version = 3;"))
+            {
+                con.Open();
+                SQLiteCommand command = con.CreateCommand();
+                command.CommandText = "DELETE FROM Appointment Where ClientID = "+appointment.ClientID+" AND datetime(Time) = datetime(\""+appointment.Time.ToString("yyyy-MM-dd HH:mm")+"\");";
                 command.ExecuteNonQuery();
             }
         }

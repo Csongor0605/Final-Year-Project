@@ -252,6 +252,8 @@
             this.appointmentListBox.Name = "appointmentListBox";
             this.appointmentListBox.Size = new System.Drawing.Size(235, 225);
             this.appointmentListBox.TabIndex = 4;
+            this.appointmentListBox.SelectedIndexChanged += new System.EventHandler(this.appointmentListBox_SelectedIndexChanged);
+            this.appointmentListBox.DoubleClick += new System.EventHandler(this.appointmentListBox_DoubleClick);
             // 
             // clientSearch
             // 
