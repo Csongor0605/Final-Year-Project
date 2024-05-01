@@ -96,8 +96,21 @@ namespace Final_Year_Project
 
                 foreach (UpdatedField field in changes)
                 {
-                    command.CommandText = "UPDATE Client SET " + ConvertFieldNameToDBColumn(field.getFieldName()) + "='" + field.getValue().ToString() + "' WHERE Id=" + field.getId().ToString();
-                    command.ExecuteNonQuery();
+                    //TODO Add extra datetime conversion for date and datetime field!!!!!!
+                    string temp_fieldValue;
+                    if (!(databaseScheme[field.getFieldName()].Item2 == false && (field.getValue() == null || (string)field.getValue() == "")))
+                    {
+
+                        if (databaseScheme[field.getFieldName()].Item1 == "DATETIME" || databaseScheme[field.getFieldName()].Item1 == "DATE")
+                            temp_fieldValue = "datetime(\"" + field.getValue().ToString() + "\"),";
+                        else if (databaseScheme[field.getFieldName()].Item1 == "NCHAR(100)" || databaseScheme[field.getFieldName()].Item1 == "TEXT")
+                            temp_fieldValue = "\"" + field.getValue().ToString() + "\",";
+                        else
+                            temp_fieldValue = field.getValue().ToString();
+
+                        command.CommandText = "UPDATE Client SET " + ConvertFieldNameToDBColumn(field.getFieldName()) + "= " + temp_fieldValue + " WHERE Id=" + field.getId().ToString();
+                        command.ExecuteNonQuery();
+                    }
                 }
                 con.Close();
             }

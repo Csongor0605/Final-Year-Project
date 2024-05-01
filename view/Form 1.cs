@@ -13,7 +13,7 @@ namespace Final_Year_Project
 {
     public partial class Form1 : Form
     {
-        private long displayedID = -1; //Set to -1 when not displaying client details, long because of exception thrown
+        private long displayedID = -1; //Set to -1 when not displaying client details, type long because of exception thrown
         private Appointment displayedApp = null;
 
         public Form1()
