@@ -194,7 +194,7 @@ namespace Final_Year_Project
             addAppBtn.Text = "Add Appointment";
             addAppBtn.UseVisualStyleBackColor = true;
             addAppBtn.Click += addAppBtn_Click;
-            ;
+            addAppBtn.Enabled = CurrData.EditingPermissions;
 
             appointmentsGroupBox.ResumeLayout(false);
             detailDisplayPanel.Controls.Add(appointmentsGroupBox);
