@@ -1,39 +1,25 @@
 ﻿using Final_Year_Project.model;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity.Core.Objects;
 using System.Data.SQLite;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Final_Year_Project
 {
 
     internal static class CurrData
     {
-        public static BindingList<ClientData> clientData= new BindingList<ClientData>();
-        private static string connectionString = System.Windows.Forms.Application.StartupPath + "\\" + "localDB.sqlite" ;
-        public static Dictionary<string,Tuple< string, bool>> databaseScheme = new Dictionary<string, Tuple<string,bool>>();   //Key is display name, tuple contains data type as string, and if it is nullable
-        public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE","DATETIME", "TEXT", "REAL" };
+        public static BindingList<ClientData> clientData = new BindingList<ClientData>();
+        private static string connectionString = System.Windows.Forms.Application.StartupPath + "\\" + "localDB.sqlite";
+        public static Dictionary<string, Tuple<string, bool>> databaseScheme = new Dictionary<string, Tuple<string, bool>>();   //Key is display name, tuple contains data type as string, and if it is nullable
+        public static string[] dataTypes = { "NCHAR(100)", "INTEGER", "DATE", "DATETIME", "TEXT", "REAL" };
         private static List<UpdatedField> changes = new List<UpdatedField>();
+        private static bool editPermissions = true;
+        private static bool adminPermissions = true;
+
+        public static bool EditingPermissions { get => editPermissions; }
+        public static bool AdminPermissions { get => adminPermissions; }
+
         public static string GetClientName(long clientID) 
         {
             foreach (ClientData client in clientData)
@@ -96,7 +82,6 @@ namespace Final_Year_Project
 
                 foreach (UpdatedField field in changes)
                 {
-                    //TODO Add extra datetime conversion for date and datetime field!!!!!!
                     string temp_fieldValue;
                     if (!(databaseScheme[field.getFieldName()].Item2 == false && (field.getValue() == null || (string)field.getValue() == "")))
                     {
@@ -374,6 +359,21 @@ namespace Final_Year_Project
                 SQLiteCommand command = con.CreateCommand();
                 command.CommandText = "DELETE FROM Appointment Where ClientID = "+appointment.ClientID+" AND datetime(Time) = datetime(\""+appointment.Time.ToString("yyyy-MM-dd HH:mm")+"\");";
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public static void SetPermissions(int level)
+        {
+            switch (level)
+            {
+                case 0:     //Read only
+                    editPermissions = false; adminPermissions = false; break;
+                case 1:     //Regular Employee no admin
+                    editPermissions = true; adminPermissions = false; break;
+                case 2:     //Administartive permissions
+                    editPermissions = true; adminPermissions = true; break;
+                default:    //Default should not be reached if it is something has gone terribly wrong
+                    editPermissions = false; adminPermissions = false; break;
             }
         }
     }

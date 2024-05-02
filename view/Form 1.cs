@@ -22,6 +22,12 @@ namespace Final_Year_Project
             //CurrData.LoadLocalDatabase();
             appointmentListBox.DisplayMember = "DisplayFormat";
             setAppointmentListSource();
+
+            this.adminPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 2); };
+
+            this.nonAdminPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 1); };
+
+            this.readOnlyPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 0); };
         }
 
         private void DisplayFields(Field[] fields)
@@ -242,7 +248,7 @@ namespace Final_Year_Project
             changeTimeBtn.TabIndex = 1;
             changeTimeBtn.Text = "Change";
             changeTimeBtn.UseVisualStyleBackColor = true;
-            changeTimeBtn.Click += (sender,e) => { changeAppTimeBtn_Click(sender, e, dateTimePicker1); };
+            changeTimeBtn.Click += (sender, e) => { changeAppTimeBtn_Click(sender, e, dateTimePicker1); };
             // 
             // saveChangesBtn
             // 
@@ -252,7 +258,7 @@ namespace Final_Year_Project
             saveChangesBtn.TabIndex = 3;
             saveChangesBtn.Text = "Save Changes";
             saveChangesBtn.UseVisualStyleBackColor = true;
-            saveChangesBtn.Click += (sender, e) => { saveAppBtn_Click(sender, e, displayedApp,dateTimePicker1,textBox1.Text); };
+            saveChangesBtn.Click += (sender, e) => { saveAppBtn_Click(sender, e, displayedApp, dateTimePicker1, textBox1.Text); };
             // 
             // deleteBtn
             // 
@@ -262,7 +268,7 @@ namespace Final_Year_Project
             deleteBtn.TabIndex = 4;
             deleteBtn.Text = "Delete";
             deleteBtn.UseVisualStyleBackColor = true;
-            deleteBtn.DoubleClick += deleteAppBtn_Click;
+            deleteBtn.Click += (sender, e) => { deleteAppBtn_Click(sender, e); };
 
 
             timePickerGroupBox.ResumeLayout(false);
@@ -284,7 +290,7 @@ namespace Final_Year_Project
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex < CurrData.clientData.Count)
+            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex < CurrData.clientData.Count)
                 DisplayFields(CurrData.clientData[listBox1.SelectedIndex].GetAllFields());
             //CurrData.ChangeSelected(listBox1.SelectedIndex);
         }
@@ -298,7 +304,7 @@ namespace Final_Year_Project
             {
                 //try
                 //{
-                    CurrData.CreateNewClient(result.returnValue.ToArray());
+                CurrData.CreateNewClient(result.returnValue.ToArray());
                 //}
                 //catch 
                 //{
@@ -328,8 +334,8 @@ namespace Final_Year_Project
             string tempFieldName = ((TextBox)sender).Parent.Text;
             string data = ((TextBox)sender).Text;
             int id; //Get id from somewhere else otherwise this will break when id hidden as it should be, use listBox
-            int.TryParse(detailDisplayPanel.Controls["Idbox"].Controls["Idtextbox"].Text,out id);
-            CurrData.UpdateField(id,tempFieldName,data);
+            int.TryParse(detailDisplayPanel.Controls["Idbox"].Controls["Idtextbox"].Text, out id);
+            CurrData.UpdateField(id, tempFieldName, data);
         }
 
         private void createDB_Btn_Click(object sender, EventArgs e)
@@ -416,6 +422,11 @@ namespace Final_Year_Project
         private void gotoClientBtn_Click(object sender, EventArgs e)
         {
             DisplayFields(CurrData.GetClientFields(displayedApp.ClientID));
+        }
+
+        private void premissionsSelect(object sender, EventArgs e, int level)
+        {
+            CurrData.SetPermissions(level);
         }
     }
 }
