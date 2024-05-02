@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Markup;
 
 namespace Final_Year_Project
@@ -13,6 +14,7 @@ namespace Final_Year_Project
     {
         public string fieldName; //Field name to disply, not as in database, should be converted each way in CurrData
         protected object data;
+        protected bool blank = true;
 
         public Field(string fieldName, object data)
         {
@@ -24,14 +26,18 @@ namespace Final_Year_Project
 
         public string GetDataAsString()
         {
-            if (data == null)
+            if (blank)
                 return "";
             return data.ToString();
         }
 
         public void SetData(object data)
         {
-            this.data = data;
+            if (data != null)
+            {
+                this.data = data;
+                blank = false;
+            }
         }
     }
 
@@ -48,8 +54,12 @@ namespace Final_Year_Project
         public new void SetData(object data)
         {
             string temp  = data.ToString();
-            if(!(temp.Length >= 100))
+            if (!(temp.Length >= 100))
+            {
                 this.data = data.ToString();
+                blank = false;
+            }
+            
         }
     }
 
@@ -68,8 +78,9 @@ namespace Final_Year_Project
             try
             {
                 this.data = int.Parse(data.ToString());
+                blank = false;
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { blank = true; }
         }
     }
 
@@ -84,7 +95,7 @@ namespace Final_Year_Project
 
         public new string GetDataAsString()
         {
-            if (data == null)
+            if (blank)
                 return "";
             return data.ToString("yyyy-MM-dd");
         }
@@ -94,11 +105,12 @@ namespace Final_Year_Project
             try
             {
                 this.data = Convert.ToDateTime(data).Date;
+                blank = false;
             }
             catch
             {
                 //Add better handling, this is not good
-                this.data = new DateTime();
+                blank = true;
             }
         }
     }
@@ -115,7 +127,7 @@ namespace Final_Year_Project
 
         public new string GetDataAsString() 
         {
-            if (data == null)
+            if (blank)
                 return "";
             return data.ToString("yyyy-MM-dd HH:mm");
         }
@@ -125,11 +137,12 @@ namespace Final_Year_Project
             try
             {
                 this.data = Convert.ToDateTime(data);
+                blank = false;
             }
             catch
             {
                 //Add better handling, this is not good
-                this.data = new DateTime();
+                blank = true;
             }
         }
     }
@@ -163,8 +176,9 @@ namespace Final_Year_Project
             try
             {
                 this.data = float.Parse(data.ToString());
+                blank = false;
             }
-            catch (Exception e) { throw e; }//Should be handled better but this works for current development
+            catch (Exception e) { blank = true; }//Should be handled better but this works for current development
         }
     }
 }

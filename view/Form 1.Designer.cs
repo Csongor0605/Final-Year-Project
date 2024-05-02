@@ -39,6 +39,10 @@
             this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
             this.loadBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.permissionsLevelSelector = new System.Windows.Forms.RibbonComboBox();
+            this.readOnlyPermissionsBtn = new System.Windows.Forms.RibbonButton();
+            this.nonAdminPermissionsBtn = new System.Windows.Forms.RibbonButton();
+            this.adminPermissionsBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.createDB_Btn = new System.Windows.Forms.RibbonButton();
@@ -55,11 +59,10 @@
             this.ribbonDescriptionMenuItem3 = new System.Windows.Forms.RibbonDescriptionMenuItem();
             this.ribbonDescriptionMenuItem4 = new System.Windows.Forms.RibbonDescriptionMenuItem();
             this.ribbonDescriptionMenuItem5 = new System.Windows.Forms.RibbonDescriptionMenuItem();
-            this.permissionsLevelSelector = new System.Windows.Forms.RibbonComboBox();
-            this.readOnlyPermissionsBtn = new System.Windows.Forms.RibbonButton();
-            this.nonAdminPermissionsBtn = new System.Windows.Forms.RibbonButton();
-            this.adminPermissionsBtn = new System.Windows.Forms.RibbonButton();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.detailDisplayPanel.SuspendLayout();
             this.appointmentBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -162,6 +165,41 @@
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "ribbonPanel3";
             // 
+            // permissionsLevelSelector
+            // 
+            this.permissionsLevelSelector.AllowTextEdit = false;
+            this.permissionsLevelSelector.DropDownItems.Add(this.readOnlyPermissionsBtn);
+            this.permissionsLevelSelector.DropDownItems.Add(this.nonAdminPermissionsBtn);
+            this.permissionsLevelSelector.DropDownItems.Add(this.adminPermissionsBtn);
+            this.permissionsLevelSelector.Name = "permissionsLevelSelector";
+            this.permissionsLevelSelector.SelectedIndex = 2;
+            this.permissionsLevelSelector.Text = "Permissions Level";
+            this.permissionsLevelSelector.TextBoxText = "Admin";
+            // 
+            // readOnlyPermissionsBtn
+            // 
+            this.readOnlyPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.Image")));
+            this.readOnlyPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.LargeImage")));
+            this.readOnlyPermissionsBtn.Name = "readOnlyPermissionsBtn";
+            this.readOnlyPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.SmallImage")));
+            this.readOnlyPermissionsBtn.Text = "Read Only";
+            // 
+            // nonAdminPermissionsBtn
+            // 
+            this.nonAdminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.Image")));
+            this.nonAdminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.LargeImage")));
+            this.nonAdminPermissionsBtn.Name = "nonAdminPermissionsBtn";
+            this.nonAdminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.SmallImage")));
+            this.nonAdminPermissionsBtn.Text = "Non-Admin";
+            // 
+            // adminPermissionsBtn
+            // 
+            this.adminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.Image")));
+            this.adminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.LargeImage")));
+            this.adminPermissionsBtn.Name = "adminPermissionsBtn";
+            this.adminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.SmallImage")));
+            this.adminPermissionsBtn.Text = "Admin";
+            // 
             // ribbonTab2
             // 
             this.ribbonTab2.Name = "ribbonTab2";
@@ -214,6 +252,7 @@
             this.detailDisplayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.detailDisplayPanel.AutoScroll = true;
+            this.detailDisplayPanel.Controls.Add(this.numericUpDown1);
             this.detailDisplayPanel.Location = new System.Drawing.Point(201, 129);
             this.detailDisplayPanel.MinimumSize = new System.Drawing.Size(238, 199);
             this.detailDisplayPanel.Name = "detailDisplayPanel";
@@ -320,40 +359,12 @@
             this.ribbonDescriptionMenuItem5.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem5.SmallImage")));
             this.ribbonDescriptionMenuItem5.Text = "ribbonDescriptionMenuItem5";
             // 
-            // permissionsLevelSelector
+            // numericUpDown1
             // 
-            this.permissionsLevelSelector.AllowTextEdit = false;
-            this.permissionsLevelSelector.DropDownItems.Add(this.readOnlyPermissionsBtn);
-            this.permissionsLevelSelector.DropDownItems.Add(this.nonAdminPermissionsBtn);
-            this.permissionsLevelSelector.DropDownItems.Add(this.adminPermissionsBtn);
-            this.permissionsLevelSelector.Name = "permissionsLevelSelector";
-            this.permissionsLevelSelector.SelectedIndex = 2;
-            this.permissionsLevelSelector.Text = "Permissions Level";
-            this.permissionsLevelSelector.TextBoxText = "Admin";
-            // 
-            // readOnlyPermissionsBtn
-            // 
-            this.readOnlyPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.Image")));
-            this.readOnlyPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.LargeImage")));
-            this.readOnlyPermissionsBtn.Name = "readOnlyPermissionsBtn";
-            this.readOnlyPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.SmallImage")));
-            this.readOnlyPermissionsBtn.Text = "Read Only";
-            // 
-            // nonAdminPermissionsBtn
-            // 
-            this.nonAdminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.Image")));
-            this.nonAdminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.LargeImage")));
-            this.nonAdminPermissionsBtn.Name = "nonAdminPermissionsBtn";
-            this.nonAdminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.SmallImage")));
-            this.nonAdminPermissionsBtn.Text = "Non-Admin";
-            // 
-            // adminPermissionsBtn
-            // 
-            this.adminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.Image")));
-            this.adminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.LargeImage")));
-            this.adminPermissionsBtn.Name = "adminPermissionsBtn";
-            this.adminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.SmallImage")));
-            this.adminPermissionsBtn.Text = "Admin";
+            this.numericUpDown1.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -368,7 +379,9 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Main Window";
+            this.detailDisplayPanel.ResumeLayout(false);
             this.appointmentBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,6 +419,7 @@
         private System.Windows.Forms.RibbonButton readOnlyPermissionsBtn;
         private System.Windows.Forms.RibbonButton nonAdminPermissionsBtn;
         private System.Windows.Forms.RibbonButton adminPermissionsBtn;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 

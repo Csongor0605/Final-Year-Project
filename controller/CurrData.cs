@@ -93,7 +93,7 @@ namespace Final_Year_Project
                         else
                             temp_fieldValue = field.getValue().ToString();
 
-                        command.CommandText = "UPDATE Client SET " + ConvertFieldNameToDBColumn(field.getFieldName()) + "= " + temp_fieldValue + " WHERE Id=" + field.getId().ToString();
+                        command.CommandText = "UPDATE Client SET " + ConvertFieldNameToDBColumn(field.getFieldName()) + "= " + temp_fieldValue.TrimEnd(',') + " WHERE Id=" + field.getId().ToString();
                         command.ExecuteNonQuery();
                     }
                 }
@@ -114,7 +114,7 @@ namespace Final_Year_Project
 
                     foreach (Field field in newClient.GetAllFields())
                     {
-                        columnNames += ConvertFieldNameToDBColumn(field.fieldName) + ',';
+                    columnNames += ConvertFieldNameToDBColumn(field.fieldName) + ',';
                     if (field.GetType() == typeof(FieldDateTime) || field.GetType() == typeof(FieldDate))
                         values += "datetime(\"" + field.GetDataAsString() + "\"),";
                     else if (field.GetType() == typeof(FieldLongString) || field.GetType() == typeof(FieldShortString))
@@ -170,13 +170,29 @@ namespace Final_Year_Project
                     for (int i = 0; i < reader.VisibleFieldCount; i++)
                     {
                         string type = databaseScheme[ConvertColumnNameToDisplayName(reader.GetName(i))].Item1;
+                        string tempFieldName = ConvertColumnNameToDisplayName(reader.GetName(i));
                         switch (type)
                         {
-                            case "System.DateTime":
-                                //tempFields.Add(new FieldDateTime(reader.GetName(i), reader[i]));
+                            case "NCHAR(100)":
+                                tempFields.Add(new FieldShortString(tempFieldName, reader[i]));
+                                break;
+                            case "TEXT":
+                                tempFields.Add(new FieldLongString(tempFieldName, reader[i]));
+                                break;
+                            case "INTEGER":
+                                tempFields.Add(new FieldInteger(tempFieldName, reader[i]));
+                                break;
+                            case "REAL":
+                                tempFields.Add(new FieldReal(tempFieldName, reader[i]));
+                                break;
+                            case "DATE":
+                                tempFields.Add(new FieldDate(tempFieldName, reader[i]));
+                                break;
+                            case "DATETIME":
+                                tempFields.Add(new FieldDateTime(tempFieldName, reader[i]));
                                 break;
                             default:
-                                tempFields.Add(new Field(ConvertColumnNameToDisplayName(reader.GetName(i)), reader[i]));
+                                tempFields.Add(new Field(tempFieldName, reader[i]));
                                 break;
                         }
                     }
@@ -206,7 +222,6 @@ namespace Final_Year_Project
             {
                 List<Field> temp = new List<Field>();
                 Random rand = new Random();
-                temp.Add(new Field("Id", rand.Next(100,999))); //Good God
 
                 temp.Add(new Field("Name","New Client"));
                 temp.Add(new Field("Address",null));
@@ -216,8 +231,8 @@ namespace Final_Year_Project
             }
             //wrap in try catch block
                 ClientData newClient = new ClientData(fields);
-                if (SaveNewClientToDB(newClient))
-                    clientData.Add(newClient);
+            if (SaveNewClientToDB(newClient))
+                LoadLocalDatabase();
           
 
         }
@@ -236,7 +251,7 @@ namespace Final_Year_Project
                 {
                     string tempName = (string)reader["name"];
                     string tempType = (string)reader["type"];
-                    bool tempNullable = reader["notnull"].Equals(0);
+                    bool tempNullable = reader["notnull"].ToString() == "0"; //This not work
 
                     databaseScheme.Add(tempName.Replace('_',' '),new Tuple<string, bool> (tempType,tempNullable));
                 }

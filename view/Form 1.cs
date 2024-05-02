@@ -24,9 +24,7 @@ namespace Final_Year_Project
             setAppointmentListSource();
 
             this.adminPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 2); };
-
             this.nonAdminPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 1); };
-
             this.readOnlyPermissionsBtn.Click += (sender, e) => { premissionsSelect(sender, e, 0); };
         }
 
@@ -41,27 +39,116 @@ namespace Final_Year_Project
             int spacing = 10;
             foreach (Field field in fields)
             {
-                if (field.fieldName == "Id")
+
+                if (field.fieldName == "Id") 
+                { 
                     displayedID = (long)field.GetData();
-                GroupBox tempFieldBox = new System.Windows.Forms.GroupBox();
-                TextBox tempFieldTextBox = new System.Windows.Forms.TextBox();
+                }
+                else if (field.GetType() == typeof(FieldDate) || field.GetType() == typeof(FieldDateTime))
+                {
+                    //Show datepicker
+                    GroupBox tempFieldBox = new System.Windows.Forms.GroupBox();
 
-                tempFieldBox.Controls.Add(tempFieldTextBox);
-                tempFieldBox.Location = new System.Drawing.Point(0, nextHeight);
-                tempFieldBox.Name = field.fieldName + "box";
-                tempFieldBox.Size = new System.Drawing.Size(379, 52); //Make auto size to parent width and child height
-                tempFieldBox.TabIndex = 0;
-                tempFieldBox.TabStop = false;
-                tempFieldBox.Text = field.fieldName;
-                nextHeight += tempFieldBox.Size.Height + spacing;
+                    DateTimePicker tempFieldNumericUpDown = new System.Windows.Forms.DateTimePicker();
 
-                tempFieldTextBox.Location = new System.Drawing.Point(7, 20);
-                tempFieldTextBox.Name = field.fieldName + "textbox";
-                tempFieldTextBox.Size = new System.Drawing.Size(366, 20);
-                tempFieldTextBox.Text = field.GetDataAsString();
-                tempFieldTextBox.TextChanged += new EventHandler(FieldDataChanged);
+                    tempFieldBox.Controls.Add(tempFieldNumericUpDown);
+                    tempFieldBox.Location = new System.Drawing.Point(0, nextHeight);
+                    tempFieldBox.Name = field.fieldName + "box";
+                    tempFieldBox.Size = new System.Drawing.Size(379, 52); //Make auto size to parent width and child height
+                    tempFieldBox.TabIndex = 0;
+                    tempFieldBox.TabStop = false;
+                    tempFieldBox.Text = field.fieldName;
+                    nextHeight += tempFieldBox.Size.Height + spacing;
 
-                detailDisplayPanel.Controls.Add(tempFieldBox);
+                    tempFieldNumericUpDown.Location = new System.Drawing.Point(7, 20);
+                    tempFieldNumericUpDown.Name = field.fieldName + "textbox";  //Called textbox for stupid me reasons
+                    tempFieldNumericUpDown.Size = new System.Drawing.Size(366, 20);
+                    DateTime value = new DateTime();
+                    if (!DateTime.TryParse(field.GetDataAsString(), out value))
+                    {
+                        value = DateTime.Today;
+                        tempFieldNumericUpDown.Checked = false;
+                    }
+                    tempFieldNumericUpDown.Value = value;
+
+                    if (CurrData.databaseScheme[field.fieldName].Item2 == true)
+                        tempFieldNumericUpDown.ShowCheckBox = true;
+
+                    if (field.GetType() == typeof(FieldDate))
+                    {
+                        tempFieldNumericUpDown.CustomFormat = "dd MMMM  yyyy";
+                        tempFieldNumericUpDown.Format = DateTimePickerFormat.Custom;
+                    }
+                    else
+                    {
+                        tempFieldNumericUpDown.CustomFormat = "HH:mm dd/MM/yyyy";
+                        tempFieldNumericUpDown.Format = DateTimePickerFormat.Custom;
+                    }
+                    tempFieldNumericUpDown.ValueChanged += new EventHandler(FieldDataChanged);
+                    tempFieldBox.Enabled = CurrData.EditingPermissions;
+
+                    detailDisplayPanel.Controls.Add(tempFieldBox);
+                }
+                else if (field.GetType() == typeof(FieldInteger) || field.GetType() == typeof(FieldReal))
+                {
+                    //show numeric selector
+                    GroupBox tempFieldBox = new System.Windows.Forms.GroupBox();
+                    NumericUpDown tempFieldNumericUpDown = new System.Windows.Forms.NumericUpDown();
+
+                    tempFieldBox.Controls.Add(tempFieldNumericUpDown);
+                    tempFieldBox.Location = new System.Drawing.Point(0, nextHeight);
+                    tempFieldBox.Name = field.fieldName + "box";
+                    tempFieldBox.Size = new System.Drawing.Size(379, 52); //Make auto size to parent width and child height
+                    tempFieldBox.TabIndex = 0;
+                    tempFieldBox.TabStop = false;
+                    tempFieldBox.Text = field.fieldName;
+                    nextHeight += tempFieldBox.Size.Height + spacing;
+
+                    tempFieldNumericUpDown.Location = new System.Drawing.Point(7, 20);
+                    tempFieldNumericUpDown.Name = field.fieldName + "textbox";  //Called textbox for stupid me reasons
+                    tempFieldNumericUpDown.Size = new System.Drawing.Size(366, 20);
+                    if (field.GetType() == typeof(FieldInteger))
+                    {
+                        int temp;
+                        if (!int.TryParse(field.GetDataAsString(), out temp))
+                            temp = 0;
+                        tempFieldNumericUpDown.Value = temp;
+                    }
+                    else
+                    {
+                        tempFieldNumericUpDown.DecimalPlaces = 3;
+                        decimal temp;
+                        if (!decimal.TryParse(field.GetDataAsString(), out temp))
+                            temp = 0;
+                        tempFieldNumericUpDown.Value = temp;
+                    }
+                    tempFieldNumericUpDown.ValueChanged += new EventHandler(FieldDataChanged);
+                    tempFieldBox.Enabled = CurrData.EditingPermissions;
+                    detailDisplayPanel.Controls.Add(tempFieldBox);
+                }
+                else 
+                {
+                    GroupBox tempFieldBox = new System.Windows.Forms.GroupBox();
+                    TextBox tempFieldTextBox = new System.Windows.Forms.TextBox();
+
+                    tempFieldBox.Controls.Add(tempFieldTextBox);
+                    tempFieldBox.Location = new System.Drawing.Point(0, nextHeight);
+                    tempFieldBox.Name = field.fieldName + "box";
+                    tempFieldBox.Size = new System.Drawing.Size(379, 52); //Make auto size to parent width and child height
+                    tempFieldBox.TabIndex = 0;
+                    tempFieldBox.TabStop = false;
+                    tempFieldBox.Text = field.fieldName;
+                    nextHeight += tempFieldBox.Size.Height + spacing;
+
+                    tempFieldTextBox.Location = new System.Drawing.Point(7, 20);
+                    tempFieldTextBox.Name = field.fieldName + "textbox";
+                    tempFieldTextBox.Size = new System.Drawing.Size(366, 20);
+                    tempFieldTextBox.Text = field.GetDataAsString();
+                    tempFieldTextBox.TextChanged += new EventHandler(FieldDataChanged);
+                    tempFieldBox.Enabled = CurrData.EditingPermissions;
+                    detailDisplayPanel.Controls.Add(tempFieldBox);
+                }
+                
             }
 
             GroupBox appointmentsGroupBox = new GroupBox();
@@ -239,6 +326,7 @@ namespace Final_Year_Project
             textBox1.Size = new System.Drawing.Size(537, 218);
             textBox1.TabIndex = 0;
             textBox1.Text = appointment.Notes;
+            textBox1.Enabled = CurrData.EditingPermissions;
             // 
             // changeTimeBtn
             // 
@@ -249,6 +337,7 @@ namespace Final_Year_Project
             changeTimeBtn.Text = "Change";
             changeTimeBtn.UseVisualStyleBackColor = true;
             changeTimeBtn.Click += (sender, e) => { changeAppTimeBtn_Click(sender, e, dateTimePicker1); };
+            changeTimeBtn.Enabled = CurrData.EditingPermissions;
             // 
             // saveChangesBtn
             // 
@@ -259,6 +348,7 @@ namespace Final_Year_Project
             saveChangesBtn.Text = "Save Changes";
             saveChangesBtn.UseVisualStyleBackColor = true;
             saveChangesBtn.Click += (sender, e) => { saveAppBtn_Click(sender, e, displayedApp, dateTimePicker1, textBox1.Text); };
+            saveChangesBtn.Enabled = CurrData.EditingPermissions;
             // 
             // deleteBtn
             // 
@@ -269,6 +359,7 @@ namespace Final_Year_Project
             deleteBtn.Text = "Delete";
             deleteBtn.UseVisualStyleBackColor = true;
             deleteBtn.Click += (sender, e) => { deleteAppBtn_Click(sender, e); };
+            deleteBtn.Enabled = CurrData.EditingPermissions;
 
 
             timePickerGroupBox.ResumeLayout(false);
@@ -331,10 +422,15 @@ namespace Final_Year_Project
 
         private void FieldDataChanged(object sender, EventArgs e)
         {
-            string tempFieldName = ((TextBox)sender).Parent.Text;
-            string data = ((TextBox)sender).Text;
-            int id; //Get id from somewhere else otherwise this will break when id hidden as it should be, use listBox
-            int.TryParse(detailDisplayPanel.Controls["Idbox"].Controls["Idtextbox"].Text, out id);
+            string tempFieldName = ((Control)sender).Parent.Text;
+            string data;
+            if (CurrData.databaseScheme[tempFieldName].Item1 == "NCHAR(100)" || CurrData.databaseScheme[tempFieldName].Item1 == "TEXT")
+                data = ((Control)sender).Text;
+            else if(CurrData.databaseScheme[tempFieldName].Item1 == "DATETIME" || CurrData.databaseScheme[tempFieldName].Item1 == "DATE")
+                data = ((DateTimePicker)sender).Value.ToString("yyyy-MM-dd HH;mm");
+            else
+                data = ((NumericUpDown)sender).Value.ToString();
+            long id = displayedID; //Get id from somewhere else otherwise this will break when id hidden as it should be, use listBox
             CurrData.UpdateField(id, tempFieldName, data);
         }
 
@@ -427,6 +523,7 @@ namespace Final_Year_Project
         private void premissionsSelect(object sender, EventArgs e, int level)
         {
             CurrData.SetPermissions(level);
+            ribbonTab2.Enabled = CurrData.AdminPermissions;
         }
     }
 }
