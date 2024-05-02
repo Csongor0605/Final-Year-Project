@@ -16,6 +16,7 @@ namespace Final_Year_Project
         public DBLocationForm()
         {
             InitializeComponent();
+            locationTextBox.Text = CurrData.GetConnectionString();
         }
 
         private void browseBtn_Click(object sender, EventArgs e)
@@ -28,6 +29,7 @@ namespace Final_Year_Project
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -39,6 +41,7 @@ namespace Final_Year_Project
             else
             {
                 CurrData.SetConnenctionString(locationTextBox.Text);
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }

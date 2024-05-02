@@ -36,18 +36,40 @@
             this.addClientBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.saveBtn = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
             this.loadBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.permissionsLevelSelector = new System.Windows.Forms.RibbonComboBox();
+            this.readOnlyPermissionsBtn = new System.Windows.Forms.RibbonButton();
+            this.nonAdminPermissionsBtn = new System.Windows.Forms.RibbonButton();
+            this.adminPermissionsBtn = new System.Windows.Forms.RibbonButton();
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.createDB_Btn = new System.Windows.Forms.RibbonButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.detailDisplayPanel = new System.Windows.Forms.Panel();
+            this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.selectDBLocationBtn = new System.Windows.Forms.RibbonButton();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.detailDisplayPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.appointmentBox = new System.Windows.Forms.GroupBox();
+            this.appointmentListBox = new System.Windows.Forms.ListBox();
+            this.clientSearch = new System.Windows.Forms.TextBox();
+            this.ribbonDescriptionMenuItem1 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.ribbonDescriptionMenuItem2 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.ribbonDescriptionMenuItem3 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.ribbonDescriptionMenuItem4 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.ribbonDescriptionMenuItem5 = new System.Windows.Forms.RibbonDescriptionMenuItem();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.detailDisplayPanel.SuspendLayout();
+            this.appointmentBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon1
             // 
+            this.ribbon1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ribbon1.Cursor = System.Windows.Forms.Cursors.Default;
             this.ribbon1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ribbon1.Location = new System.Drawing.Point(0, 0);
             this.ribbon1.Minimized = false;
@@ -67,7 +89,7 @@
             // 
             this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.ribbon1.Size = new System.Drawing.Size(1009, 122);
+            this.ribbon1.Size = new System.Drawing.Size(1071, 122);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.Tabs.Add(this.ribbonTab2);
@@ -82,6 +104,7 @@
             this.ribbonButton1.Name = "ribbonButton1";
             this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
             this.ribbonButton1.Text = "ribbonButton1";
+            this.ribbonButton1.DoubleClick += new System.EventHandler(this.ribbonButton1_DoubleClick);
             // 
             // ribbonTab1
             // 
@@ -109,6 +132,7 @@
             // ribbonPanel2
             // 
             this.ribbonPanel2.Items.Add(this.saveBtn);
+            this.ribbonPanel2.Items.Add(this.ribbonSeparator1);
             this.ribbonPanel2.Items.Add(this.loadBtn);
             this.ribbonPanel2.Name = "ribbonPanel2";
             this.ribbonPanel2.Text = "Save/Load";
@@ -122,6 +146,10 @@
             this.saveBtn.Text = "Save";
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
+            // ribbonSeparator1
+            // 
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            // 
             // loadBtn
             // 
             this.loadBtn.Image = ((System.Drawing.Image)(resources.GetObject("loadBtn.Image")));
@@ -133,8 +161,44 @@
             // 
             // ribbonPanel3
             // 
+            this.ribbonPanel3.Items.Add(this.permissionsLevelSelector);
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "ribbonPanel3";
+            // 
+            // permissionsLevelSelector
+            // 
+            this.permissionsLevelSelector.AllowTextEdit = false;
+            this.permissionsLevelSelector.DropDownItems.Add(this.readOnlyPermissionsBtn);
+            this.permissionsLevelSelector.DropDownItems.Add(this.nonAdminPermissionsBtn);
+            this.permissionsLevelSelector.DropDownItems.Add(this.adminPermissionsBtn);
+            this.permissionsLevelSelector.Name = "permissionsLevelSelector";
+            this.permissionsLevelSelector.SelectedIndex = 2;
+            this.permissionsLevelSelector.Text = "Permissions Level";
+            this.permissionsLevelSelector.TextBoxText = "Admin";
+            // 
+            // readOnlyPermissionsBtn
+            // 
+            this.readOnlyPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.Image")));
+            this.readOnlyPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.LargeImage")));
+            this.readOnlyPermissionsBtn.Name = "readOnlyPermissionsBtn";
+            this.readOnlyPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("readOnlyPermissionsBtn.SmallImage")));
+            this.readOnlyPermissionsBtn.Text = "Read Only";
+            // 
+            // nonAdminPermissionsBtn
+            // 
+            this.nonAdminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.Image")));
+            this.nonAdminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.LargeImage")));
+            this.nonAdminPermissionsBtn.Name = "nonAdminPermissionsBtn";
+            this.nonAdminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("nonAdminPermissionsBtn.SmallImage")));
+            this.nonAdminPermissionsBtn.Text = "Non-Admin";
+            // 
+            // adminPermissionsBtn
+            // 
+            this.adminPermissionsBtn.Image = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.Image")));
+            this.adminPermissionsBtn.LargeImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.LargeImage")));
+            this.adminPermissionsBtn.Name = "adminPermissionsBtn";
+            this.adminPermissionsBtn.SmallImage = ((System.Drawing.Image)(resources.GetObject("adminPermissionsBtn.SmallImage")));
+            this.adminPermissionsBtn.Text = "Admin";
             // 
             // ribbonTab2
             // 
@@ -145,6 +209,7 @@
             // ribbonPanel4
             // 
             this.ribbonPanel4.Items.Add(this.createDB_Btn);
+            this.ribbonPanel4.Items.Add(this.ribbonSeparator2);
             this.ribbonPanel4.Items.Add(this.selectDBLocationBtn);
             this.ribbonPanel4.Name = "ribbonPanel4";
             this.ribbonPanel4.Text = "DataBase";
@@ -158,22 +223,9 @@
             this.createDB_Btn.Text = "Create";
             this.createDB_Btn.Click += new System.EventHandler(this.createDB_Btn_Click);
             // 
-            // listBox1
+            // ribbonSeparator2
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 129);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(183, 433);
-            this.listBox1.TabIndex = 1;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // detailDisplayPanel
-            // 
-            this.detailDisplayPanel.AutoScroll = true;
-            this.detailDisplayPanel.Location = new System.Drawing.Point(208, 128);
-            this.detailDisplayPanel.Name = "detailDisplayPanel";
-            this.detailDisplayPanel.Size = new System.Drawing.Size(543, 433);
-            this.detailDisplayPanel.TabIndex = 2;
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
             // 
             // selectDBLocationBtn
             // 
@@ -184,18 +236,154 @@
             this.selectDBLocationBtn.Text = "Set Database Location";
             this.selectDBLocationBtn.Click += new System.EventHandler(this.selectDBLocationBtn_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(13, 155);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(183, 407);
+            this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // detailDisplayPanel
+            // 
+            this.detailDisplayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailDisplayPanel.AutoScroll = true;
+            this.detailDisplayPanel.Controls.Add(this.numericUpDown1);
+            this.detailDisplayPanel.Location = new System.Drawing.Point(201, 129);
+            this.detailDisplayPanel.MinimumSize = new System.Drawing.Size(238, 199);
+            this.detailDisplayPanel.Name = "detailDisplayPanel";
+            this.detailDisplayPanel.Size = new System.Drawing.Size(579, 436);
+            this.detailDisplayPanel.TabIndex = 2;
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.monthCalendar1.Location = new System.Drawing.Point(9, 22);
+            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(7);
+            this.monthCalendar1.MaxSelectionCount = 1;
+            this.monthCalendar1.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 3;
+            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
+            // 
+            // appointmentBox
+            // 
+            this.appointmentBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.appointmentBox.Controls.Add(this.appointmentListBox);
+            this.appointmentBox.Controls.Add(this.monthCalendar1);
+            this.appointmentBox.Location = new System.Drawing.Point(785, 128);
+            this.appointmentBox.Margin = new System.Windows.Forms.Padding(2);
+            this.appointmentBox.Name = "appointmentBox";
+            this.appointmentBox.Padding = new System.Windows.Forms.Padding(2);
+            this.appointmentBox.Size = new System.Drawing.Size(250, 433);
+            this.appointmentBox.TabIndex = 3;
+            this.appointmentBox.TabStop = false;
+            this.appointmentBox.Text = "Appointments";
+            // 
+            // appointmentListBox
+            // 
+            this.appointmentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.appointmentListBox.FormattingEnabled = true;
+            this.appointmentListBox.Location = new System.Drawing.Point(9, 201);
+            this.appointmentListBox.Margin = new System.Windows.Forms.Padding(2);
+            this.appointmentListBox.Name = "appointmentListBox";
+            this.appointmentListBox.Size = new System.Drawing.Size(235, 225);
+            this.appointmentListBox.TabIndex = 4;
+            this.appointmentListBox.SelectedIndexChanged += new System.EventHandler(this.appointmentListBox_SelectedIndexChanged);
+            this.appointmentListBox.DoubleClick += new System.EventHandler(this.appointmentListBox_DoubleClick);
+            // 
+            // clientSearch
+            // 
+            this.clientSearch.Location = new System.Drawing.Point(13, 129);
+            this.clientSearch.Margin = new System.Windows.Forms.Padding(2);
+            this.clientSearch.MaxLength = 250;
+            this.clientSearch.Name = "clientSearch";
+            this.clientSearch.Size = new System.Drawing.Size(183, 20);
+            this.clientSearch.TabIndex = 4;
+            // 
+            // ribbonDescriptionMenuItem1
+            // 
+            this.ribbonDescriptionMenuItem1.DescriptionBounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.ribbonDescriptionMenuItem1.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonDescriptionMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.Image")));
+            this.ribbonDescriptionMenuItem1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.LargeImage")));
+            this.ribbonDescriptionMenuItem1.Name = "ribbonDescriptionMenuItem1";
+            this.ribbonDescriptionMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem1.SmallImage")));
+            this.ribbonDescriptionMenuItem1.Text = "ribbonDescriptionMenuItem1";
+            // 
+            // ribbonDescriptionMenuItem2
+            // 
+            this.ribbonDescriptionMenuItem2.DescriptionBounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.ribbonDescriptionMenuItem2.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonDescriptionMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem2.Image")));
+            this.ribbonDescriptionMenuItem2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem2.LargeImage")));
+            this.ribbonDescriptionMenuItem2.Name = "ribbonDescriptionMenuItem2";
+            this.ribbonDescriptionMenuItem2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem2.SmallImage")));
+            this.ribbonDescriptionMenuItem2.Text = "ribbonDescriptionMenuItem2";
+            // 
+            // ribbonDescriptionMenuItem3
+            // 
+            this.ribbonDescriptionMenuItem3.DescriptionBounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.ribbonDescriptionMenuItem3.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonDescriptionMenuItem3.Image = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem3.Image")));
+            this.ribbonDescriptionMenuItem3.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem3.LargeImage")));
+            this.ribbonDescriptionMenuItem3.Name = "ribbonDescriptionMenuItem3";
+            this.ribbonDescriptionMenuItem3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem3.SmallImage")));
+            this.ribbonDescriptionMenuItem3.Text = "ribbonDescriptionMenuItem3";
+            // 
+            // ribbonDescriptionMenuItem4
+            // 
+            this.ribbonDescriptionMenuItem4.DescriptionBounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.ribbonDescriptionMenuItem4.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonDescriptionMenuItem4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem4.Image")));
+            this.ribbonDescriptionMenuItem4.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem4.LargeImage")));
+            this.ribbonDescriptionMenuItem4.Name = "ribbonDescriptionMenuItem4";
+            this.ribbonDescriptionMenuItem4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem4.SmallImage")));
+            this.ribbonDescriptionMenuItem4.Text = "ribbonDescriptionMenuItem4";
+            // 
+            // ribbonDescriptionMenuItem5
+            // 
+            this.ribbonDescriptionMenuItem5.DescriptionBounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.ribbonDescriptionMenuItem5.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonDescriptionMenuItem5.Image = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem5.Image")));
+            this.ribbonDescriptionMenuItem5.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem5.LargeImage")));
+            this.ribbonDescriptionMenuItem5.Name = "ribbonDescriptionMenuItem5";
+            this.ribbonDescriptionMenuItem5.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem5.SmallImage")));
+            this.ribbonDescriptionMenuItem5.Text = "ribbonDescriptionMenuItem5";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 575);
+            this.ClientSize = new System.Drawing.Size(1041, 575);
+            this.Controls.Add(this.clientSearch);
+            this.Controls.Add(this.appointmentBox);
             this.Controls.Add(this.detailDisplayPanel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ribbon1);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Main Window";
+            this.detailDisplayPanel.ResumeLayout(false);
+            this.appointmentBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -208,7 +396,7 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Panel detailDisplayPanel;
+        private System.Windows.Forms.FlowLayoutPanel detailDisplayPanel;
         private System.Windows.Forms.RibbonButton addClientBtn;
         private System.Windows.Forms.RibbonButton saveBtn;
         private System.Windows.Forms.RibbonButton loadBtn;
@@ -216,6 +404,22 @@
         private System.Windows.Forms.RibbonButton createDB_Btn;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton selectDBLocationBtn;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.GroupBox appointmentBox;
+        private System.Windows.Forms.ListBox appointmentListBox;
+        private System.Windows.Forms.TextBox clientSearch;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
+        private System.Windows.Forms.RibbonDescriptionMenuItem ribbonDescriptionMenuItem1;
+        private System.Windows.Forms.RibbonDescriptionMenuItem ribbonDescriptionMenuItem2;
+        private System.Windows.Forms.RibbonDescriptionMenuItem ribbonDescriptionMenuItem3;
+        private System.Windows.Forms.RibbonDescriptionMenuItem ribbonDescriptionMenuItem4;
+        private System.Windows.Forms.RibbonDescriptionMenuItem ribbonDescriptionMenuItem5;
+        private System.Windows.Forms.RibbonComboBox permissionsLevelSelector;
+        private System.Windows.Forms.RibbonButton readOnlyPermissionsBtn;
+        private System.Windows.Forms.RibbonButton nonAdminPermissionsBtn;
+        private System.Windows.Forms.RibbonButton adminPermissionsBtn;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 

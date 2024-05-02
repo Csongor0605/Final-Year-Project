@@ -127,13 +127,20 @@ namespace Final_Year_Project
             }
             else
             {
-                string commandText =    "CREATE TABLE Client(" +
-                                        "Id INTEGER NOT NULL, ";
+                string commandText =
+                    "CREATE TABLE Client(" +
+                    "Id INTEGER NOT NULL, " +
+                    "Name NCHAR(100) NOT NULL, ";
 
                 foreach (Panel field in fieldListPanel.Controls.Find("FieldPanel", true))
                 {
                     string column = field.Controls.Find("fieldNameTextBox",true).FirstOrDefault().Text.Trim().Replace(' ','_')+" ";
                     column += field.Controls.Find("fieldTypeDropDownBox", true).FirstOrDefault().Text;
+
+                    if (column.ToLower() == "name" || column.ToLower() == "id")
+                    {
+                        MessageBox.Show("Name and ID columns are created automatically, it is not necessary to add them");
+                    }
 
                     CheckBox tempCheck = (CheckBox)field.Controls.Find("nullableCheckbox", true).FirstOrDefault();
                     if (!tempCheck.Checked)
@@ -153,6 +160,14 @@ namespace Final_Year_Project
                         con.Open();
                         SQLiteCommand command = con.CreateCommand();
                         command.CommandText = commandText;
+
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = "CREATE TABLE Appointment(ClientID INTEGER NOT NULL," +
+                            "                                           Time DATETIME NOT NULL," +
+                            "                                           Notes TEXT NULL," +
+                            "                                           PRIMARY KEY(ClientID,Time)," +
+                            "                                           FOREIGN KEY(ClientID) REFERENCES Client(Id))";
 
                         command.ExecuteNonQuery();
                     }

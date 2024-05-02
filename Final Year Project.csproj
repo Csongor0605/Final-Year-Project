@@ -112,55 +112,65 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UpdatedField.cs" />
-    <Compile Include="CurrData.cs" />
-    <Compile Include="ClientData.cs" />
-    <Compile Include="Field.cs" />
-    <Compile Include="Form 1.cs">
+    <Compile Include="view\addAppointmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form 1.Designer.cs">
+    <Compile Include="view\addAppointmentForm.Designer.cs">
+      <DependentUpon>addAppointmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="model\Appointment.cs" />
+    <Compile Include="model\UpdatedField.cs" />
+    <Compile Include="controller\CurrData.cs" />
+    <Compile Include="model\ClientData.cs" />
+    <Compile Include="model\Field.cs" />
+    <Compile Include="view\Form 1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Form 1.Designer.cs">
       <DependentUpon>Form 1.cs</DependentUpon>
     </Compile>
-    <Compile Include="addClientForm.cs">
+    <Compile Include="view\addClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addClientForm.Designer.cs">
+    <Compile Include="view\addClientForm.Designer.cs">
       <DependentUpon>addClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateDatabaseFile.cs">
+    <Compile Include="view\CreateDatabaseFile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateDatabaseFile.Designer.cs">
+    <Compile Include="view\CreateDatabaseFile.Designer.cs">
       <DependentUpon>CreateDatabaseFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBLocationForm.cs">
+    <Compile Include="view\DBLocationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DBLocationForm.Designer.cs">
+    <Compile Include="view\DBLocationForm.Designer.cs">
       <DependentUpon>DBLocationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="view\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
+    <Compile Include="view\Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="addClientForm.resx">
+    <EmbeddedResource Include="view\addAppointmentForm.resx">
+      <DependentUpon>addAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\addClientForm.resx">
       <DependentUpon>addClientForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreateDatabaseFile.resx">
+    <EmbeddedResource Include="view\CreateDatabaseFile.resx">
       <DependentUpon>CreateDatabaseFile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form 1.resx">
+    <EmbeddedResource Include="view\Form 1.resx">
       <DependentUpon>Form 1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DBLocationForm.resx">
+    <EmbeddedResource Include="view\DBLocationForm.resx">
       <DependentUpon>DBLocationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
+    <EmbeddedResource Include="view\Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -188,9 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="default.csv" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
