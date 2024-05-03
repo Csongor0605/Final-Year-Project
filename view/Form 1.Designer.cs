@@ -59,10 +59,7 @@
             this.ribbonDescriptionMenuItem3 = new System.Windows.Forms.RibbonDescriptionMenuItem();
             this.ribbonDescriptionMenuItem4 = new System.Windows.Forms.RibbonDescriptionMenuItem();
             this.ribbonDescriptionMenuItem5 = new System.Windows.Forms.RibbonDescriptionMenuItem();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.detailDisplayPanel.SuspendLayout();
             this.appointmentBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -72,6 +69,7 @@
             this.ribbon1.Cursor = System.Windows.Forms.Cursors.Default;
             this.ribbon1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ribbon1.Location = new System.Drawing.Point(0, 0);
+            this.ribbon1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ribbon1.Minimized = false;
             this.ribbon1.Name = "ribbon1";
             // 
@@ -89,7 +87,7 @@
             // 
             this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.ribbon1.Size = new System.Drawing.Size(1071, 122);
+            this.ribbon1.Size = new System.Drawing.Size(1428, 150);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.Tabs.Add(this.ribbonTab2);
@@ -241,9 +239,11 @@
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 155);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(17, 191);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(183, 407);
+            this.listBox1.Size = new System.Drawing.Size(243, 500);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -252,19 +252,18 @@
             this.detailDisplayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.detailDisplayPanel.AutoScroll = true;
-            this.detailDisplayPanel.Controls.Add(this.numericUpDown1);
-            this.detailDisplayPanel.Location = new System.Drawing.Point(201, 129);
-            this.detailDisplayPanel.MinimumSize = new System.Drawing.Size(238, 199);
+            this.detailDisplayPanel.Location = new System.Drawing.Point(268, 159);
+            this.detailDisplayPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.detailDisplayPanel.MinimumSize = new System.Drawing.Size(317, 245);
             this.detailDisplayPanel.Name = "detailDisplayPanel";
-            this.detailDisplayPanel.Size = new System.Drawing.Size(579, 436);
+            this.detailDisplayPanel.Size = new System.Drawing.Size(772, 537);
             this.detailDisplayPanel.TabIndex = 2;
             // 
             // monthCalendar1
             // 
             this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.monthCalendar1.Location = new System.Drawing.Point(9, 22);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(7);
+            this.monthCalendar1.Location = new System.Drawing.Point(12, 27);
             this.monthCalendar1.MaxSelectionCount = 1;
             this.monthCalendar1.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.monthCalendar1.Name = "monthCalendar1";
@@ -278,11 +277,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.appointmentBox.Controls.Add(this.appointmentListBox);
             this.appointmentBox.Controls.Add(this.monthCalendar1);
-            this.appointmentBox.Location = new System.Drawing.Point(785, 128);
-            this.appointmentBox.Margin = new System.Windows.Forms.Padding(2);
+            this.appointmentBox.Location = new System.Drawing.Point(1047, 158);
+            this.appointmentBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.appointmentBox.Name = "appointmentBox";
-            this.appointmentBox.Padding = new System.Windows.Forms.Padding(2);
-            this.appointmentBox.Size = new System.Drawing.Size(250, 433);
+            this.appointmentBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.appointmentBox.Size = new System.Drawing.Size(333, 533);
             this.appointmentBox.TabIndex = 3;
             this.appointmentBox.TabStop = false;
             this.appointmentBox.Text = "Appointments";
@@ -292,22 +291,24 @@
             this.appointmentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.appointmentListBox.FormattingEnabled = true;
-            this.appointmentListBox.Location = new System.Drawing.Point(9, 201);
-            this.appointmentListBox.Margin = new System.Windows.Forms.Padding(2);
+            this.appointmentListBox.ItemHeight = 16;
+            this.appointmentListBox.Location = new System.Drawing.Point(12, 247);
+            this.appointmentListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.appointmentListBox.Name = "appointmentListBox";
-            this.appointmentListBox.Size = new System.Drawing.Size(235, 225);
+            this.appointmentListBox.Size = new System.Drawing.Size(312, 276);
             this.appointmentListBox.TabIndex = 4;
             this.appointmentListBox.SelectedIndexChanged += new System.EventHandler(this.appointmentListBox_SelectedIndexChanged);
             this.appointmentListBox.DoubleClick += new System.EventHandler(this.appointmentListBox_DoubleClick);
             // 
             // clientSearch
             // 
-            this.clientSearch.Location = new System.Drawing.Point(13, 129);
-            this.clientSearch.Margin = new System.Windows.Forms.Padding(2);
+            this.clientSearch.Location = new System.Drawing.Point(17, 159);
+            this.clientSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clientSearch.MaxLength = 250;
             this.clientSearch.Name = "clientSearch";
-            this.clientSearch.Size = new System.Drawing.Size(183, 20);
+            this.clientSearch.Size = new System.Drawing.Size(243, 22);
             this.clientSearch.TabIndex = 4;
+            this.clientSearch.TextChanged += new System.EventHandler(this.clientSearch_TextChanged);
             // 
             // ribbonDescriptionMenuItem1
             // 
@@ -359,29 +360,21 @@
             this.ribbonDescriptionMenuItem5.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonDescriptionMenuItem5.SmallImage")));
             this.ribbonDescriptionMenuItem5.Text = "ribbonDescriptionMenuItem5";
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 0;
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1041, 575);
+            this.ClientSize = new System.Drawing.Size(1388, 708);
             this.Controls.Add(this.clientSearch);
             this.Controls.Add(this.appointmentBox);
             this.Controls.Add(this.detailDisplayPanel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ribbon1);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Main Window";
-            this.detailDisplayPanel.ResumeLayout(false);
             this.appointmentBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,7 +412,6 @@
         private System.Windows.Forms.RibbonButton readOnlyPermissionsBtn;
         private System.Windows.Forms.RibbonButton nonAdminPermissionsBtn;
         private System.Windows.Forms.RibbonButton adminPermissionsBtn;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 

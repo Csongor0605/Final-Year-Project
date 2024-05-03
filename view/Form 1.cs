@@ -524,6 +524,13 @@ namespace Final_Year_Project
         {
             CurrData.SetPermissions(level);
             ribbonTab2.Enabled = CurrData.AdminPermissions;
+            addClientBtn.Enabled = CurrData.EditingPermissions;
+            saveBtn.Enabled = CurrData.EditingPermissions;
+        }
+
+        private void clientSearch_TextChanged(object sender, EventArgs e)
+        {
+            //Set list box 1 datasource to filtered list.
         }
     }
 }
